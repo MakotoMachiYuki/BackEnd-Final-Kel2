@@ -17,9 +17,6 @@
         <a href="/login" class="login" >Login</a>
         </nav>
     </header>
-
-   
-    </div>
-    </section>
+    <h1>Halaman About</h1>
 </body>
 </html>
