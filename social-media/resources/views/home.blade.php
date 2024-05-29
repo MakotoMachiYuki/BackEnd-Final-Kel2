@@ -8,9 +8,17 @@
 </head>
 <body>
     <header class="header">
-        <a href="#" class="CODEGRAM"> </a>
+        <a href="#" class="logo">CODEGRAM</a>
 
-        <
-    <h1>Halaman Home</h1>
+        <nav class="navbar">
+        <a href="/" target="_self">Home</a>
+        <a href="/post" target="_self">Post</a>
+        <a href="/about" target="_self">About</a>
+        <a href="/login" class="login" >Login</a>
+        </nav>
+    </header>
+    
+    
+
 </body>
 </html>

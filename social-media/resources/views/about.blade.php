@@ -7,6 +7,19 @@
     <title>CODEGRAM | About</title>
 </head>
 <body>
-    <h1>Halaman About</h1>
+    <header class="header">
+        <a href="#" class="logo">CODEGRAM</a>
+
+        <nav class="navbar">
+        <a href="/" target="_self">Home</a>
+        <a href="/post" target="_self">Post</a>
+        <a href="/about" target="_self">About</a>
+        <a href="/login" class="login" >Login</a>
+        </nav>
+    </header>
+
+   
+    </div>
+    </section>
 </body>
 </html>
