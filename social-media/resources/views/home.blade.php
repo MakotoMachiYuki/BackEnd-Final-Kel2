@@ -17,7 +17,7 @@
         <a href="/login" class="login" >Login</a>
         </nav>
     </header>
-    
+    <h1>Halaman Home</h1>
     
 
 </body>
