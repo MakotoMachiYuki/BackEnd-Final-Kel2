@@ -19,5 +19,14 @@
     </header>
 
     <h1>Halaman Login</h1>
+    
+    <form>
+        <p>Input your email</p>
+        <input type="text" placeholder="Input Username">
+        <p>Input your password</p>
+        <input type="text" placeholder="Input Pssword">
+        <br>
+        <button type="submite">Submite</button>
+    </form>
 </body>
 </html>
