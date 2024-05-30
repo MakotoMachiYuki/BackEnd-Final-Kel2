@@ -21,12 +21,13 @@
     <h1>Halaman Login</h1>
     
     <form>
-        <p>Input your email</p>
-        <input type="text" placeholder="Input Username">
-        <p>Input your password</p>
-        <input type="text" placeholder="Input Pssword">
+        <label>Input your : </label>
+        <input type="text" placeholder="Input Username" required>
         <br>
-        <button type="submite">Submite</button>
+        <label>Input your password:</label>
+        <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Input Password" required>
+        <br>
+        <input type="submit" value="login"> 
     </form>
 </body>
 </html>

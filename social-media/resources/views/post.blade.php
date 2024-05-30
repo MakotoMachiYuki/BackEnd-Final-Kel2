@@ -18,5 +18,15 @@
         </nav>
     </header>
     <h1>Halaman Post</h1>
+
+    <form>
+        <label>Post choice</label>
+        <select required>
+            <option disabled="disabled" selected>select choice</option>
+            <option>text</option>
+            <option>video</option>
+            <option>image</option>
+        </select>
+    </form>
 </body>
 </html>
