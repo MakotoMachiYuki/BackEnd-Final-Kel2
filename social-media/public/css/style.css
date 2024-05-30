@@ -19,7 +19,7 @@ body {
     left: 0;
     width: 100%;
     padding: 20px 120px;
-    background: #2a71ff;
+    background:linear-gradient(to right, blue, pink);
     display: flex;
     justify-content: space-between;
     align-items: center;

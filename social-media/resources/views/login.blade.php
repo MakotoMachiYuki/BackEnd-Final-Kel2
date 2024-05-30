@@ -13,7 +13,8 @@
         <nav class="navbar">
         <a href="/" target="_self">Home</a>
         <a href="/post" target="_self">Post</a>
-        <a href="/about" target="_self">About</a>
+        <a href="/about" target="_self">Profile</a>
+        <a href="/settings" target="_self">Settings</a>
         <a href="/login" class="login" >Login</a>
         </nav>
     </header>
@@ -24,9 +25,9 @@
         <p>Input your email</p>
         <input type="text" placeholder="Input Username">
         <p>Input your password</p>
-        <input type="text" placeholder="Input Pssword">
+        <input type="password" placeholder="Input Password">
         <br>
-        <button type="submite">Submite</button>
+        <a href="/" target="_self"><input type="Submit" value="Submit"></a>
     </form>
 </body>
 </html>
