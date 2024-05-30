@@ -23,3 +23,7 @@ Route::get('/create_account', function () {
 Route::get('/about', function () {
     return view('about');
 });
+
+Route::get('/settings', function () {
+    return view('settings');
+});
