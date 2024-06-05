@@ -13,7 +13,8 @@
         <nav class="navbar">
         <a href="/" target="_self">Home</a>
         <a href="/post" target="_self">Post</a>
-        <a href="/about" target="_self">About</a>
+        <a href="/about" target="_self">Profile</a>
+        <a href="/settings" target="_self">Settings</a>
         <a href="/login" class="login" >Login</a>
         </nav>
     </header>
@@ -21,12 +22,13 @@
     <h1>Halaman Login</h1>
     
     <form>
-        <p>Input your email</p>
-        <input type="text" placeholder="Input Username">
-        <p>Input your password</p>
-        <input type="text" placeholder="Input Pssword">
+        <label>Input your : </label>
+        <input type="text" placeholder="Input Username" required>
         <br>
-        <button type="submite">Submite</button>
+        <label>Input your password:</label>
+        <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Input Password" required>
+        <br>
+        <input type="submit" value="login"> 
     </form>
 </body>
 </html>

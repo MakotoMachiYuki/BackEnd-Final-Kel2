@@ -13,10 +13,21 @@
         <nav class="navbar">
         <a href="/" target="_self">Home</a>
         <a href="/post" target="_self">Post</a>
-        <a href="/about" target="_self">About</a>
+        <a href="/about" target="_self">Profile</a>
+        <a href="/settings" target="_self">Settings</a>
         <a href="/login" class="login" >Login</a>
         </nav>
     </header>
     <h1>Halaman Post</h1>
+
+    <form>
+        <label>Post choice</label>
+        <select required>
+            <option disabled="disabled" selected>select choice</option>
+            <option>text</option>
+            <option>video</option>
+            <option>image</option>
+        </select>
+    </form>
 </body>
 </html>
