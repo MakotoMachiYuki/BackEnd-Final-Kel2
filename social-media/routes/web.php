@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\DashboardPostController;
 
 
 Route::get('/', function () {
@@ -27,3 +27,11 @@ Route::get('/about', function () {
 Route::get('/settings', function () {
     return view('settings');
 });
+
+
+Route::get('/dashboard', function () {
+    return view('dasboard.index');
+})->middleware('auth');
+
+
+route::resource('/dashboard/posts', DashboardPostController::class)->middleware('auth');
