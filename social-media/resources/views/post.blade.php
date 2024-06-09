@@ -20,19 +20,19 @@
     
     </header>
 <div class="col-lg-8">
-    
+       <h1>Halaman create_account</h1>
+       <form class="createPost" action="{{route('createPost')}}" method="POST">
+        @csrf
         <div class="mb-3">
-            <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Title</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
-            </div>
+            <label>Input your : </label><br>
+            <textarea id="title" name="title" placeholder="Enter the title" rows="2" required></textarea>
+            <br>
         <div class="mb-3">
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Text</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                  </div>
+            <label>Input your : </label><br>
+            <textarea id="text" name="text" placeholder="Enter the text" rows="5" required></textarea>
+            <br>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="submit" name="post" value="Create Post">Submit</button>
       </form>
 </div>
 </body>

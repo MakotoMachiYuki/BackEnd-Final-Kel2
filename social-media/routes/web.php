@@ -4,7 +4,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\DashboardPostController;
+use App\Http\Controllers\postController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\registerController;
@@ -16,6 +16,9 @@ Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(
 Route::get('/post', function() {
     return view('post');
 });
+
+Route::get('/post', [postController::class, 'create']) -> name('create');
+Route::post('/post', [postController::class, 'createPost']) -> name('createPost');
 
 Route::get('/login', [loginController::class, 'login']) -> name('login');
 Route::post('/login', [loginController::class, 'loginAccount']) -> name('loginAccount');

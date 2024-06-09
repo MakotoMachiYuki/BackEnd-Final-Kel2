@@ -19,7 +19,6 @@
         <a href="/post" target="_self">Post</a>
         <a href="/about" target="_self">Profile</a>
         <a href="/settings" target="_self">Settings</a>
-        <a href="/login" class="login" >Login</a>
         <a href="{{route('logout')}}" class = "logout"> Logout</a> 
         </nav>
     </header>
