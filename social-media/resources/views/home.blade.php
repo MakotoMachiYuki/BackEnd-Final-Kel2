@@ -41,7 +41,7 @@
                     <?php
 // Define connection parameters
 $host = "localhost"; // Change to your PostgreSQL host
-$dbname = "users"; // Change to your database name
+$dbname = "postgres"; // Change to your database name
 $user = "postgres"; // Change to your PostgreSQL username
 $password = "(Noel220605)"; // Change to your PostgreSQL password
 
@@ -52,7 +52,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Perform query
-    $statement = $pdo->query("SELECT * FROM users");
+    $statement = $pdo->query("SELECT * FROM posts");
 
     // Fetch data
     while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
