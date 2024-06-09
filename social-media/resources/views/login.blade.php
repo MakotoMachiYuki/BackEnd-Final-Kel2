@@ -21,14 +21,19 @@
 
     <h1>Halaman Login</h1>
     
-    <form>
+    <form class = "loginPage" action = "{{route('loginAccount')}}" method = "post">
+    @csrf
         <label>Input your : </label>
-        <input type="text" placeholder="Input Username" required>
+        <input type="text" placeholder="Username" name = "username" required>
         <br>
-        <label>Input your password:</label>
-        <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Input Password" required>
+
+        <label>Input your :</label>
+        <input type="password" placeholder="Input Password" name = "password" required>
         <br>
-        <input type="submit" value="login"> 
+
+        <input class = "submit" type="submit" name = "login" value = "Log In">
+        <br>
+        <p> Didn't have an account? <a href = "/create_account" > Register Now!</a></p>
     </form>
 </body>
 </html>
