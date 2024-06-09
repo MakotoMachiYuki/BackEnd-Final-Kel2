@@ -36,36 +36,60 @@
         <div class="container">
             <div class="row">
                 <!-- Blog entries-->
-                <div class="col-lg-8">
+                <div class="col-lg-8">  
                     <?php
-// Define connection parameters
-$host = "localhost"; // Change to your PostgreSQL host
-$dbname = "postgres"; // Change to your database name
-$user = "postgres"; // Change to your PostgreSQL username
-$password = "(Noel220605)"; // Change to your PostgreSQL password
-
-try {
-    
-    // Establish connection
-    $pdo = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Perform query
-    $statement = $pdo->query("SELECT * FROM posts");
-
-    // Fetch data
-    while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
-        echo "
-        <div>
-            <h2>{$row['title']}</h2>
-            <p>{$row['text']}</p>
-        </div>
-        ";
-    }
-} catch (PDOException $e) {
-    echo "An error occurred while connecting to the database: " . $e->getMessage();
-}
-?>
+                    // Connection parameters
+                    $host = "localhost";
+                    $dbname = "postgres";
+                    $user = "postgres";
+                    $password = "(Noel220605)";
+                    
+                    // Pagination parameters
+                    $postsPerPage = 5; // Number of posts per page
+                    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+                    $offset = ($page - 1) * $postsPerPage;
+                    
+                    try {
+                        // Establish connection
+                        $pdo = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
+                        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    
+                        // Get total number of posts
+                        $totalPosts = $pdo->query("SELECT COUNT(*) FROM posts")->fetchColumn();
+                        $totalPages = ceil($totalPosts / $postsPerPage);
+                    
+                        // Perform query with limit and offset
+                        $statement = $pdo->prepare("SELECT * FROM posts LIMIT :limit OFFSET :offset");
+                        $statement->bindParam(':limit', $postsPerPage, PDO::PARAM_INT);
+                        $statement->bindParam(':offset', $offset, PDO::PARAM_INT);
+                        $statement->execute();
+                    
+                        // Fetch data
+                        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+                            echo "
+                            <div>
+                                <h2>{$row['title']}</h2>
+                                <p>{$row['text']}</p>
+                            </div>
+                            ";
+                        }
+                    } catch (PDOException $e) {
+                        echo "An error occurred while connecting to the database: " . $e->getMessage();
+                    }
+                    
+                    // Pagination controls
+                    echo '<div class="pagination">';
+                    if ($page > 1) {
+                        echo '<a href="?page=' . ($page - 1) . '"><< Previous</a>';
+                    }
+                    for ($i = 1; $i <= $totalPages; $i++) {
+                        echo '<a href="?page=' . $i . '">' . $i . '</a>';
+                    }
+                    if ($page < $totalPages) {
+                        echo '<a href="?page=' . ($page + 1) . '">Next>></a>';
+                    }
+                    echo '</div>';
+                    ?>
      </div>
                 <!-- Side widgets-->
                 <div class="col-lg-4">
