@@ -1,6 +1,7 @@
 <?php
 
 
+
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\DashboardPostController;
@@ -12,7 +13,7 @@ use App\Http\Controllers\registerController;
 Route::get('/',[homeController::class, 'index'])->name('home')->middleware('auth');
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
-Route::get('/post', function () {
+Route::get('/post', function() {
     return view('post');
 });
 
@@ -37,4 +38,5 @@ Route::get('/dashboard', function () {
 })->middleware('auth');
 
 
-route::resource('/dashboard/posts', DashboardPostController::class)->middleware('auth');
+
+

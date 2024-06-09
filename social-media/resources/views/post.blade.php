@@ -17,11 +17,23 @@
         <a href="/settings" target="_self">Settings</a>
         <a href="/login" class="login" >Login</a>
         </nav>
+    
     </header>
-<div class="table-post">
-<a href="/dasboard/posts/create"class="btn btn-primary mb-3"> Create New Post</a> 
-
-
+<div class="col-lg-8">
+    <form>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Name</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+         
+        </div>
+        <div class="mb-3">
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Text</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
 </div>
 </body>
 </html>

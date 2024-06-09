@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('birthday');
-            $table->string('address');
+            $table->string('Post');
             $table->timestamp('updated_at')->nullable();
             $table->timestamp('created_at')->nullable();
         });
