@@ -38,22 +38,36 @@
             <div class="row">
                 <!-- Blog entries-->
                 <div class="col-lg-8">
-                        <?php
-                        $connection = pg_connect("host=$localhost dbname=$postgres user=$postgres password=$(Noel220605)");
-                        if(!$result){
-                            echo "An error occured.<br>";
-                            exit;
-                        }
-                        
-                        $result = pg_query($connection, "SELECT * FROM users");
-                        if(!$result){
-                            echo "An error occured.<br>";
-                            exit;
-                        } 
-                        ?>
-                       <th>title</th>
-                       <th>title</th>
-                </div>
+                    <?php
+// Define connection parameters
+$host = "localhost"; // Change to your PostgreSQL host
+$dbname = "users"; // Change to your database name
+$user = "postgres"; // Change to your PostgreSQL username
+$password = "(Noel220605)"; // Change to your PostgreSQL password
+
+try {
+    
+    // Establish connection
+    $pdo = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Perform query
+    $statement = $pdo->query("SELECT * FROM users");
+
+    // Fetch data
+    while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+        echo "
+        <div>
+            <h2>{$row['title']}</h2>
+            <p>{$row['text']}</p>
+        </div>
+        ";
+    }
+} catch (PDOException $e) {
+    echo "An error occurred while connecting to the database: " . $e->getMessage();
+}
+?>
+     </div>
                 <!-- Side widgets-->
                 <div class="col-lg-4">
                     <!-- Search widget-->
