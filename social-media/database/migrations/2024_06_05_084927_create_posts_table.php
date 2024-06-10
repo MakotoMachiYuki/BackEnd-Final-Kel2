@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('birthday');
+            $table->string('title');
+            $table->string('text');
             $table->timestamp('updated_at')->nullable();
             $table->timestamp('created_at')->nullable();
         });
