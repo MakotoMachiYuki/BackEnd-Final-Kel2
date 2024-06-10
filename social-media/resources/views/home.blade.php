@@ -39,6 +39,7 @@
                 <div class="col-lg-8">  
                     <?php
                     // Connection parameters
+                    $connection = env('DB_CONNECTION');
                     $host = env('DB_HOST');
                     $dbname = env('DB_DATABASE');
                     $user = env('DB_USERNAME');
@@ -51,7 +52,7 @@
                     
                     try {
                         // Establish connection
-                        $pdo = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
+                        $pdo = new PDO("$connection:host=$host;dbname=$dbname", $user, $password);
                         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                     
                         // Get total number of posts
