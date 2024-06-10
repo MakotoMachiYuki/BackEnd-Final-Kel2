@@ -39,10 +39,10 @@
                 <div class="col-lg-8">  
                     <?php
                     // Connection parameters
-                    $host = "localhost";
-                    $dbname = "postgres";
-                    $user = "postgres";
-                    $password = "(Noel220605)";
+                    $host = env('DB_HOST');
+                    $dbname = env('DB_DATABASE');
+                    $user = env('DB_USERNAME');
+                    $password = env('DB_PASSWORD');
                     
                     // Pagination parameters
                     $postsPerPage = 5; // Number of posts per page
