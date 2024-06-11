@@ -15,8 +15,13 @@ class Post extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'creator_id',
         'title',
         'text',
     ];
+
+    public function post(){
+        return $this->hasMany(Post::class, 'post_id');
+    }
 
 }

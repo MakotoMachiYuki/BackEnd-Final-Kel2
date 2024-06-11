@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class SavedPost extends Model
 {
     use HasFactory;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -20,4 +20,19 @@ class SavedPost extends Model
         'post_id',
         'saved_date',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    
+    public function creator()
+    {
+        return $this->belongsTo(Creator::class, 'creator_id');
+    }
+    
+    public function post()
+    {
+        return $this->belongsTo(Post::class, 'post_id');
+    }
 }

@@ -49,7 +49,7 @@
                     $postsPerPage = 5; // Number of posts per page
                     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
                     $offset = ($page - 1) * $postsPerPage;
-                    
+
                     try {
                         // Establish connection
                         $pdo = new PDO("$connection:host=$host;dbname=$dbname", $user, $password);
@@ -58,7 +58,7 @@
                         // Get total number of posts
                         $totalPosts = $pdo->query("SELECT COUNT(*) FROM posts")->fetchColumn();
                         $totalPages = ceil($totalPosts / $postsPerPage);
-                    
+
                         // Perform query with limit and offset
                         $statement = $pdo->prepare("SELECT * FROM posts LIMIT :limit OFFSET :offset");
                         $statement->bindParam(':limit', $postsPerPage, PDO::PARAM_INT);
@@ -71,7 +71,12 @@
                             <div>
                                 <h2>{$row['title']}</h2>
                                 <p>{$row['text']}</p>
-                            </div>
+                                <form method='POST' action='handle_request.php'>
+                                    <input type='hidden' name='creator_id' value='{$row['creator_id']}'>
+                                    <input type='hidden' name='post_id' value='{$row['id']}'>
+                                    <input type='hidden' name='user_id' value='{Auth::user()->id}'>
+                                    <button class='btn btn-primary' type='submit'>Save</button>
+                                </form>
                             ";
                         }
                     } catch (PDOException $e) {
