@@ -18,14 +18,4 @@ class Post extends Model
         'title',
         'text',
     ];
-
-    public function likes()
-    {
-        return $this->hasMany(Like::class);
-    }
-
-    public function likesCount()
-    {
-        return $this->likes()->count();
-    }
 }

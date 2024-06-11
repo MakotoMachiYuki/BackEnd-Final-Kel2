@@ -71,14 +71,7 @@
                             <div>
                             <h2>{$row['title']}</h2>
                             <p>{$row['text']}</p>
-                            <!-- Tombol Like -->
-                            <form id='likeForm{$row['id']}' action='" . route('posts.like', $row['id']) . "' method='POST'>
-                                <input type='hidden' name='_token' value='" . csrf_token() . "'>
-                                <button type='submit'>Like</button>
-                            </form>
-                            <!-- Counter Like -->
-                            <span>{$row['likes_count']} Likes</span>
-                        </div>
+                            </div>
                             ";
                         }
                     } catch (PDOException $e) {

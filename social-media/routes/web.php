@@ -39,6 +39,3 @@ Route::get('/settings', function () {
 Route::get('/dashboard', function () {
     return view('dasboard.index');
 })->middleware('auth');
-
-Route::post('/posts/{post}/like', [LikeController::class, 'likePost'])->name('posts.like');
-Route::delete('/posts/{post}/unlike', [LikeController::class, 'unlikePost'])->name('posts.unlike');
