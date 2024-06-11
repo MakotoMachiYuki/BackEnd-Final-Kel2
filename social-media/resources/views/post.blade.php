@@ -21,14 +21,19 @@
     </header>
 <div class="col-lg-8">
        <h1>Halaman create_account</h1>
-       <form class="createPost" action="{{route('createPost')}}" method="POST">
+       <form class="createPost" action="{{route('createPost')}}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
-            <label>Input your : </label><br>
+            <label for="formFile" class="form-label">Upload Image:</label>
+            <input class="form-control" type="file" id="post-images" name="post-images">
+
+          </div>
+        <div class="mb-3">
+            <label>Input your Title : </label><br>
             <textarea id="title" name="title" placeholder="Enter the title" rows="2" required></textarea>
             <br>
         <div class="mb-3">
-            <label>Input your : </label><br>
+            <label>Input your Caption : </label><br>
             <textarea id="text" name="text" placeholder="Enter the text" rows="5" required></textarea>
             <br>
         </div>
