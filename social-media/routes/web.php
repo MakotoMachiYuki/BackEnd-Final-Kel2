@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\registerController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
 
 
@@ -30,3 +32,15 @@ Route::get('/about', function () {
 Route::get('/settings', function () {
     return view('settings');
 });
+
+Route::get('/forgot-password', function() {
+    return view('forgot-password');
+});
+
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetlinkEmail'])->name('sendResetlinkEmail');
+
+Route::get('/reset-password', function() {
+    return view('reset-password');
+});
+
+Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('reset');

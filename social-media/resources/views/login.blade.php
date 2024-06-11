@@ -34,6 +34,11 @@
         <input class = "submit" type="submit" name = "login" value = "Log In">
         <br>
         <p> Didn't have an account? <a href = "/create_account" > Register Now!</a></p>
-    </form>
+        <p> Forgot your password? <a href="/forgot-password">Log In Here!</a></p> 
+
+
+   
+
+ 
 </body>
 </html>
