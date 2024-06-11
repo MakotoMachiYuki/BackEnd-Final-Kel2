@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\SavedPost;
 use Illuminate\Http\Request;
@@ -8,13 +9,17 @@ class savedPostController extends Controller
 {
     public function savedPost(Request $request)
     {
-        $user = SavedPost::create([
+        $savedPost = SavedPost::create([
             'creator_id' => $request->creator_id,
-            'user_id' => $request->user_id,
+            'user_id' => $request->Auth()::id,
             'post_id' => $request->post_id,
-            'saved_date' => $request->saved_date,
+            'saved_date' => now(),
         ]);
 
-        return response("Post saved", 200);   
+        return redirect('/home');   
+    }
+
+    public function getAllPost(Request $request){
+        
     }
 }

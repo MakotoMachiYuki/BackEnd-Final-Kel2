@@ -4,6 +4,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\savedPostController;
 use App\Http\Controllers\postController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\loginController;
@@ -35,11 +36,11 @@ Route::get('/settings', function () {
     return view('settings');
 });
 
-
 Route::get('/dashboard', function () {
     return view('dasboard.index');
 })->middleware('auth');
 
+Route::post('/savedPost', [savedPostController::class, 'savedPost']) -> name('saveBookmark')
 
 
-
+?>

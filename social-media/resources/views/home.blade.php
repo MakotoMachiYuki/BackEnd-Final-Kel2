@@ -64,7 +64,8 @@
                         $statement->bindParam(':limit', $postsPerPage, PDO::PARAM_INT);
                         $statement->bindParam(':offset', $offset, PDO::PARAM_INT);
                         $statement->execute();
-                    
+
+                        
                         // Fetch data
                         while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
                             echo "
@@ -73,8 +74,8 @@
                                 <p>{$row['text']}</p>
                                 <form method='POST' action='handle_request.php'>
                                     <input type='hidden' name='creator_id' value='{$row['creator_id']}'>
-                                    <input type='hidden' name='post_id' value='{$row['id']}'>
                                     <input type='hidden' name='user_id' value='{Auth::user()->id}'>
+                                    <input type='hidden' name='post_id' value='{$row['id']}'>
                                     <button class='btn btn-primary' type='submit'>Save</button>
                                 </form>
                             ";
