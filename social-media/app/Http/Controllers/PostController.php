@@ -11,13 +11,24 @@ class postController extends Controller
     {
         return view('post');
     }
+    public function store(Request $request)
+    {
+        dd($request->all());
+    }
+
     public function createPost(Request $request)
     {
-        $user = Post::create([
-            'title' => $request->title,
-            'text'=> $request->text,
+
+    $imagePath = $request->file('post-images')->store('post-images');
+
+ 
+    $post = Post::create([
+        'image' => $imagePath,
+        'title' => $request->title,
+        'text' => $request->text,
+    ]);
           
-            ]);
+    
 
             return redirect('home');
     }

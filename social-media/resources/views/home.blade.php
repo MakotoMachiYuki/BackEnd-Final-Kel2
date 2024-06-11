@@ -59,20 +59,24 @@
                         $totalPages = ceil($totalPosts / $postsPerPage);
                     
                         // Perform query with limit and offset
-                        $statement = $pdo->prepare("SELECT * FROM posts LIMIT :limit OFFSET :offset");
+                        $statement = $pdo->prepare("SELECT * FROM posts ORDER BY id DESC LIMIT :limit OFFSET :offset");
                         $statement->bindParam(':limit', $postsPerPage, PDO::PARAM_INT);
                         $statement->bindParam(':offset', $offset, PDO::PARAM_INT);
                         $statement->execute();
                     
-                        // Fetch data
-                        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
-                            echo "
-                            <div>
-                                <h2>{$row['title']}</h2>
-                                <p>{$row['text']}</p>
-                            </div>
-                            ";
-                        }
+                     // Fetch data
+        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+            // Convert newlines to <br> for proper display
+            $text = nl2br(htmlspecialchars($row['text']));
+                $imagePath = $row['image'];
+            echo "
+            <div class='post'>
+                  <img src='$imagePath' alt='Post Image'>
+                <h2>" . htmlspecialchars($row['title']) . "</h2>
+                <p>" . $text . "</p>
+            </div>
+            ";
+        }
                     } catch (PDOException $e) {
                         echo "An error occurred while connecting to the database: " . $e->getMessage();
                     }
