@@ -19,7 +19,6 @@
         <a href="/post" target="_self">Post</a>
         <a href="/about" target="_self">Profile</a>
         <a href="/settings" target="_self">Settings</a>
-        <a href="/login" class="login" >Login</a>
         <a href="{{route('logout')}}" class = "logout"> Logout</a> 
         </nav>
     </header>
@@ -37,78 +36,62 @@
         <div class="container">
             <div class="row">
                 <!-- Blog entries-->
-                <div class="col-lg-8">
-                    <!-- Featured blog post-->
-                    <div class="card mb-4">
-                        <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                        <div class="card-body">
-                            <div class="small text-muted">January 1, 2023</div>
-                            <h2 class="card-title">Featured Post Title</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-                            <a class="btn btn-primary" href="#!">Read more →</a>
-                        </div>
-                    </div>
-                    <!-- Nested row for non-featured blog posts-->
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <!-- Blog post-->
-                            <div class="card mb-4">
-                                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                                <div class="card-body">
-                                    <div class="small text-muted">January 1, 2023</div>
-                                    <h2 class="card-title h4">Post Title</h2>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                                    <a class="btn btn-primary" href="#!">Read more →</a>
-                                </div>
+                <div class="col-lg-8">  
+                    <?php
+                    // Connection parameters
+                    $connection = env('DB_CONNECTION');
+                    $host = env('DB_HOST');
+                    $dbname = env('DB_DATABASE');
+                    $user = env('DB_USERNAME');
+                    $password = env('DB_PASSWORD');
+                    
+                    // Pagination parameters
+                    $postsPerPage = 5; // Number of posts per page
+                    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+                    $offset = ($page - 1) * $postsPerPage;
+                    
+                    try {
+                        // Establish connection
+                        $pdo = new PDO("$connection:host=$host;dbname=$dbname", $user, $password);
+                        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    
+                        // Get total number of posts
+                        $totalPosts = $pdo->query("SELECT COUNT(*) FROM posts")->fetchColumn();
+                        $totalPages = ceil($totalPosts / $postsPerPage);
+                    
+                        // Perform query with limit and offset
+                        $statement = $pdo->prepare("SELECT * FROM posts LIMIT :limit OFFSET :offset");
+                        $statement->bindParam(':limit', $postsPerPage, PDO::PARAM_INT);
+                        $statement->bindParam(':offset', $offset, PDO::PARAM_INT);
+                        $statement->execute();
+                    
+                        // Fetch data
+                        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+                            echo "
+                            <div>
+                                <h2>{$row['title']}</h2>
+                                <p>{$row['text']}</p>
                             </div>
-                            <!-- Blog post-->
-                            <div class="card mb-4">
-                                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                                <div class="card-body">
-                                    <div class="small text-muted">January 1, 2023</div>
-                                    <h2 class="card-title h4">Post Title</h2>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                                    <a class="btn btn-primary" href="#!">Read more →</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <!-- Blog post-->
-                            <div class="card mb-4">
-                                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                                <div class="card-body">
-                                    <div class="small text-muted">January 1, 2023</div>
-                                    <h2 class="card-title h4">Post Title</h2>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                                    <a class="btn btn-primary" href="#!">Read more →</a>
-                                </div>
-                            </div>
-                            <!-- Blog post-->
-                            <div class="card mb-4">
-                                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                                <div class="card-body">
-                                    <div class="small text-muted">January 1, 2023</div>
-                                    <h2 class="card-title h4">Post Title</h2>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam.</p>
-                                    <a class="btn btn-primary" href="#!">Read more →</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Pagination-->
-                    <nav aria-label="Pagination">
-                        <hr class="my-0" />
-                        <ul class="pagination justify-content-center my-4">
-                            <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Newer</a></li>
-                            <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#!">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#!">3</a></li>
-                            <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
-                            <li class="page-item"><a class="page-link" href="#!">15</a></li>
-                            <li class="page-item"><a class="page-link" href="#!">Older</a></li>
-                        </ul>
-                    </nav>
-                </div>
+                            ";
+                        }
+                    } catch (PDOException $e) {
+                        echo "An error occurred while connecting to the database: " . $e->getMessage();
+                    }
+                    
+                    // Pagination controls
+                    echo '<div class="pagination">';
+                    if ($page > 1) {
+                        echo '<a href="?page=' . ($page - 1) . '"><< Previous</a>';
+                    }
+                    for ($i = 1; $i <= $totalPages; $i++) {
+                        echo '<a href="?page=' . $i . '">' . $i . '</a>';
+                    }
+                    if ($page < $totalPages) {
+                        echo '<a href="?page=' . ($page + 1) . '">Next>></a>';
+                    }
+                    echo '</div>';
+                    ?>
+     </div>
                 <!-- Side widgets-->
                 <div class="col-lg-4">
                     <!-- Search widget-->
