@@ -68,14 +68,14 @@
         while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
             // Convert newlines to <br> for proper display
             $text = nl2br(htmlspecialchars($row['text']));
-                $imagePath = $row['image'];
-            echo "
-            <div class='post'>
-                  <img src='$imagePath' alt='Post Image'>
-                <h2>" . htmlspecialchars($row['title']) . "</h2>
-                <p>" . $text . "</p>
-            </div>
-            ";
+            $imagePath = htmlspecialchars($row['image']); // assuming 'image' is the column name
+        echo "
+        <div class='post'>
+   <img src='storage/$imagePath' alt='Post Image' width='500' height='300'>
+        <h2>" . htmlspecialchars($row['title']) . "</h2>
+        <p>" . nl2br(htmlspecialchars($row['text'])) . "</p>
+        </div>
+        ";
         }
                     } catch (PDOException $e) {
                         echo "An error occurred while connecting to the database: " . $e->getMessage();
