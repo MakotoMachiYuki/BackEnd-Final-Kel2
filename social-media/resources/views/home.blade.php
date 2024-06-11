@@ -69,8 +69,8 @@
                         while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
                             echo "
                             <div>
-                            <h2>{$row['title']}</h2>
-                            <p>{$row['text']}</p>
+                                <h2>{$row['title']}</h2>
+                                <p>{$row['text']}</p>
                             </div>
                             ";
                         }

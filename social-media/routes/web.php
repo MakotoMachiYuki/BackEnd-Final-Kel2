@@ -8,7 +8,6 @@ use App\Http\Controllers\postController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\registerController;
-use App\Http\Controllers\LikeController;
 
 Route::get('/',[homeController::class, 'index'])->name('home')->middleware('auth');
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
