@@ -18,6 +18,12 @@
         <a href="/login" class="login" >Login</a>
         </nav>
     </header>
-    <h1>Halaman About</h1>
+    <h1>Profile</h1>
+    <body>
+    <p><strong>Username : </strong> {{Auth::user() -> username}}</p>
+    <p><strong>Email : </strong>{{Auth::user() -> email}}</p>
+    <h1>Your Post</h1>
+
+</body>
 </body>
 </html>

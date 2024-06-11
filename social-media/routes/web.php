@@ -8,7 +8,7 @@ use App\Http\Controllers\postController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\registerController;
-
+use App\Http\Controllers\LikeController;
 
 Route::get('/',[homeController::class, 'index'])->name('home')->middleware('auth');
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
@@ -40,6 +40,5 @@ Route::get('/dashboard', function () {
     return view('dasboard.index');
 })->middleware('auth');
 
-
-
-
+Route::post('/posts/{post}/like', [LikeController::class, 'likePost'])->name('posts.like');
+Route::delete('/posts/{post}/unlike', [LikeController::class, 'unlikePost'])->name('posts.unlike');
