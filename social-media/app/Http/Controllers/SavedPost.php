@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SavedPost;
-use Iluminate\Http\Request;
+use Illuminate\Http\Request;
 
 class savedPostController extends Controller
 {
@@ -18,4 +18,3 @@ class savedPostController extends Controller
         return response("Post saved", 200);   
     }
 }
-?>
