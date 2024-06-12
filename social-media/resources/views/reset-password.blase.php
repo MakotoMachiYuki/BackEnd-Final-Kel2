@@ -19,21 +19,35 @@
         </nav>
     </header>
     
-     <h3>Reset Password</h3>
+    <h3>Reset Password</h3>
     <form class = "resetpasswordpage" action="{{ route('reset')}}" method="post">
-        @csrf
+    @csrf
+    <label for= "username" >Username:</label>
+    <input type = "text" name = "username" id="username" required>
+    <label for = "password">New Password:</label>
+    <input type = "password" name =  "password" id="password" required>
+    <label for = "password_confirmation">Confirm Your New Password:</label>
+    <input type = "password" placeholder="confirm New Password" name="password_confirmation" required>
+    <button type="submit">Reset Password</button>
+    <p>Remember your password? <a href="/login">Login here!</a></p>
+    <input class = "submit" type="submit" name = "login" value = "Log In">
+
+
+    <!-- <form class = "resetpasswordpage" action="{{ route('reset')}}" method="post">
         <input type="hidden" name="token" value="{{ request()->token }}">
         <labbel>Enter your email address:</label>
         <input type="email" placehorder="Email" name="email" required>
         <br>
 
         <label>Enter your new password:</label>
-        <input type="password" placehorer="New Password" name="password_confirmation" required>
+        <input type="password" placeholder="New Password" name="password_confirmation" required>
         <br>
         <label>Confirm your new pasword:</label>
         <input type="password" placeholder="confirm New Password" name="password_confirmation" requuired>
         <br>
         <p>Remember your password? <a href="/login">Login here!</a></p>
+        <input class = "submit" type="submit" name = "login" value = "Log In">
+        <br> -->
     </form> 
 </body>
 </html>

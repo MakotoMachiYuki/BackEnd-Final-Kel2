@@ -19,20 +19,18 @@
         </nav>
     </header>
 
-
-
     <h2>Forgot Password</h2>
 
-    <form class = "forgotpasswordPage" action = "{{route('sendResetlinkEmail')}}" method = "post">
-    @csrf
-        <label>Enter your email address to reset your password: </label>
-        <input type="email" placeholder= "Email" name="email" required>
+    <form class = "forgotpasswordPage" action = "{{route('sendReset')}}" method = "post">
+        @csrf
+        <label>Enter your username to reset your password: </label>
+        <input type="username" placeholder= "Username" name="username" required>
         <br>
 
         <input class="submit" type="submit" value="Send Password Reset Link">
         <br>
         <p>Remembered your password? <a href="/login">Login here!</a></p>
-    </form>
+        </form>
     <a href="/reset-password">Reset Password </a>
 </body>
 </html>

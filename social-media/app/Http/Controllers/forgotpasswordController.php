@@ -1,30 +1,38 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\request;
-use Illuminate\Support\Facades\Password;
-use Illuminate\Suppport\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use App\Models\User;
 
 class ForgotPasswordController extends Controller
 {
-    public function sendResetLinkEmail(Request $request)
+    public function showForgotPasswordForm()
     {
-        $validator = Validator::make($request->all(),[
-            'email' => 'required|email',
-        ]);
+        return view('forgot-password');
+    }
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator ->errors()], 422);
+    public function sendReset(Request $request)
+    {
+        $request->validate(['username'=> 'required']);
+        $user = User::where('username', $request->username)->first();
+
+        if(!$user) {
+            return back()->withErrors(['username' => 'Username not found.']);
         }
-    $status = Password::sendResetLink(
-        $request->only('email')
-    );
-    return $status === Password::sent_reset_link
-        ? response()->json(['message' => __($status)], 200)
-        : response()->json(['message' => __($status)], 400);
+
+    $token = str::random(60);    
+    DB::table('password_resets')->insert([
+        'username'=> $user->username,
+        'token' => $token,
+        'created_at'=> now(),
+    ]);
+    
+    $resetLink = route('password.reset', ['token' => $token]);
+    return back()->with('status', 'Password reset link has been generated. Here it is: '. $resetLink);
     }
 }
 ?>
