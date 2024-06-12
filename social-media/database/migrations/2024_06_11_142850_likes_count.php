@@ -21,8 +21,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn('likes_count');
-        });
+        Schema::dropIfExists('likes_counts');
     }
 };
