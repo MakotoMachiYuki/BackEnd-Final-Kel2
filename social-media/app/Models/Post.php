@@ -18,6 +18,6 @@ class Post extends Model
         'image',
         'title',
         'text',
+        'likes_count',
     ];
-
 }

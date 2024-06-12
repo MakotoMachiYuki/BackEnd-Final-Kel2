@@ -9,7 +9,6 @@ use App\Http\Controllers\homeController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\registerController;
 
-
 Route::get('/',[homeController::class, 'index'])->name('home')->middleware('auth');
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
@@ -40,6 +39,4 @@ Route::get('/dashboard', function () {
     return view('dasboard.index');
 })->middleware('auth');
 
-
-
-
+Route::post('/post/{id}/like', [postController::class, 'likePost'])->name('likePost');
