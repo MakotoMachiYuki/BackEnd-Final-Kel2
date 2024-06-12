@@ -21,7 +21,7 @@ Route::post('/post', [postController::class, 'createPost']) -> name('createPost'
 
 Route::get('/login', [loginController::class, 'login']) -> name('login');
 Route::post('/login', [loginController::class, 'loginAccount']) -> name('loginAccount');
-Route::get('/', [loginController::class, 'logout']) ->name('logout')->middleware('auth');
+Route::get('/logout', [loginController::class, 'logout']) ->name('logout')->middleware('auth');
 
 Route::get('/create_account', [registerController::class, 'register']) -> name('register');
 Route::post('/create_account', [registerController::class, 'registerAccount']) -> name('registerAccount');
