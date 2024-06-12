@@ -15,6 +15,7 @@ class Post extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'image',
         'title',
         'text',
         'likes_count',
