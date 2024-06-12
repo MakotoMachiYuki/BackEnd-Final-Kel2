@@ -28,7 +28,7 @@
             <div class="container">
                 <div class="text-center my-5">
                     <h1 class="fw-bolder">Welcome {{Auth::user() -> username}} ! </h1>
-                    <p class="lead mb-0">A Bootstrap 5 starter layout for your next blog homepage</p>
+                    <p class="lead mb-0">Have some fun in codegram!</p>
                 </div>
             </div>
         </header>
@@ -71,12 +71,14 @@
                             <div>
                                 <h2>{$row['title']}</h2>
                                 <p>{$row['text']}</p>
+                                <form action='" . route('likePost', ['id' => $row['id']]) . "' method='POST'> 
+                                    " . csrf_field() . " 
+                                    <button type='submit' class='btn btn-primary likeButton'>LIKE <span class='counter'>{$row['likes_count']}</span></button>
+                                </form>
                             </div>
-                            ";
-                        }
-                    } catch (PDOException $e) {
-                        echo "An error occurred while connecting to the database: " . $e->getMessage();
-                    }
+                            "; }
+                     } catch (PDOException $e) {echo "An error occurred while connecting to the database: " . $e->getMessage();}
+                
                     
                     // Pagination controls
                     echo '<div class="pagination">';

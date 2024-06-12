@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class postController extends Controller
 {
@@ -20,5 +21,18 @@ class postController extends Controller
             ]);
 
             return redirect('home');
+    }
+
+    public function likePost($id)
+    {
+        $postId = "post_{$id}";
+
+        if (!Session::has($postId)) {
+            $post = Post::findOrFail($id);
+            $post->increment('likes_count');
+            Session::put($postId, true);
+        }
+
+        return back();
     }
 }

@@ -38,3 +38,5 @@ Route::get('/settings', function () {
 Route::get('/dashboard', function () {
     return view('dasboard.index');
 })->middleware('auth');
+
+Route::post('/post/{id}/like', [postController::class, 'likePost'])->name('likePost');
