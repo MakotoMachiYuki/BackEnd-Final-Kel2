@@ -18,11 +18,16 @@
         <a href="/login" class="login" >Login</a>
         </nav>
     </header>
+
+    </main>
     <h1>Profile</h1>
-    <body>
+    <section class="about">
     <p><strong>Username : </strong> {{Auth::user() -> username}}</p>
     <p><strong>Email : </strong>{{Auth::user() -> email}}</p>
+    <p> Hallo, i'm chichii <p>
+    </section>    
     <h1>Your Post</h1>
+    
 
 </body>
 </body>
