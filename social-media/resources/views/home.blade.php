@@ -76,26 +76,16 @@
    <img src='storage/$imagePath' alt='Post Image' width='500' height='300'>
         <h2>" . htmlspecialchars($row['title']) . "</h2>
         <p>" . nl2br(htmlspecialchars($row['text'])) . "</p>
+        <form action='" . route('likePost', ['id' => $row['id']]) . "' method='POST'> 
+                                    " . csrf_field() . " 
+                                    <button type='submit' class='btn btn-primary likeButton'>LIKE <span class='counter'>{$row['likes_count']}</span></button>
+                                </form>
         </div>
         ";
         }
                     } catch (PDOException $e) {
                         echo "An error occurred while connecting to the database: " . $e->getMessage();
                     }
-
-// Fetch data
-        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
-                            echo "
-                            <div>
-                                <h2>{$row['title']}</h2>
-                                <p>{$row['text']}</p>
-                                <form action='" . route('likePost', ['id' => $row['id']]) . "' method='POST'> 
-                                    " . csrf_field() . " 
-                                    <button type='submit' class='btn btn-primary likeButton'>LIKE <span class='counter'>{$row['likes_count']}</span></button>
-                                </form>
-                            </div>
-                            "; }
-                     } catch (PDOException $e) {echo "An error occurred while connecting to the database: " . $e->getMessage();}
                 
 
                     
