@@ -11,33 +11,34 @@
         <a href="#" class="logo">CODEGRAM</a>
 
     </header>
-    <h1>Halaman create_account</h1>
+    <h1 class ="judul">Create Account</h1>
     <form class = "registerAccount" action = "{{route('registerAccount')}}" method = "post">
     @csrf
-        <label>Input your : </label>
+        <label  class="label">Input your : </label>
         <input type = "name" placeholder = "Name" name = "name" required>
         <br>
 
-        <label>Input your : </label>
+        <label  class="label">Input your : </label>
         <input type = "text" placeholder = "Username" name = "username" required>
         <br>
 
-        <label>Input your : </label>
+        <label  class="label">Input your : </label>
         <input type = "email" placeholder = "Email" name = "email" required>
         <br>
 
-        <label> Input your : </label>
+        <label class="label"> Date Of Birthday : </label>
         <input type = "date" placeholder = "Date Of Birth" name = "dateOfBirth" required>
-        <label> Date Of Birthday </label>
+     
         <br>
 
-        <label>Input your : </label>
+        <label  class="label">Input your : </label>
         <input type = "password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  placeholder="Password" name = "password" required>
         <br>
-
         <input class = "submit" type = "submit" name = "signin" value = "Sign In">
         <br>
-        <a href = "/login" class = "login"> Already Haven an account? Click Here! </a>
+        <div class="login">
+        <a href = "/login" class = "login" > Already Haven an account? Click Here! </a>
+        </div>
     </form>
 </body>
 </html>

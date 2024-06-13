@@ -12,7 +12,7 @@
 
     </header>
 
-    <h1>Halaman Login</h1>
+    <h1 class="judul">Login</h1>
     
     <form class = "loginPage" action = "{{route('loginAccount')}}" method = "post">
     @csrf

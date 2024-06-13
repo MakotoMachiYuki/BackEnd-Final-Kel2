@@ -19,8 +19,8 @@
         </nav>
     
     </header>
-<div class="col-lg-8">
-       <h1>Halaman create_account</h1>
+
+       <h1 class="judul">Create Post</h1>
        <form class="createPost" action="{{route('createPost')}}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
@@ -39,18 +39,8 @@
         </div>
         <button type="submit" class="submit" name="post" value="Create Post">Submit</button>
       </form>
-</div>
+
 </body>
 </html>
 
 
-<!-- 
-    <form>
-        <label>Post choice</label>
-        <select required>
-            <option disabled="disabled" selected>select choice</option>
-            <option>text</option>
-            <option>video</option>
-            <option>image</option>
-        </select>
-    </form> -->
