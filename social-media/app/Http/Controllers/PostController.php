@@ -12,10 +12,10 @@ class postController extends Controller
     {
         return view('post');
     }
+    
     public function createPost(Request $request)
     {
         $post = Post::create([
-            'creator_id' => Auth::id(),
             'title' => $request->title,
             'text'=> $request->text,
             ]);

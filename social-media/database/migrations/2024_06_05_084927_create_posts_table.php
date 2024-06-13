@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('creator_id')->constrained('creators');
             $table->string('title');
             $table->string('text');
             $table->timestamp('updated_at')->nullable();
@@ -26,6 +25,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('posts');
+        Schema::enableForeignKeyConstraints();
     }
 };

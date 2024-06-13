@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('saved_posts', function (Blueprint $table){
-            $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+        Schema::create('creator_posts', function (Blueprint $table){
             $table->unsignedBigInteger('post_id');
             $table->foreign('post_id')->references('id')->on('posts');
-            $table->date('saved_date');
-            $table->timestamps();
+            $table->unsignedBigInteger('creator_id');
+            $table->foreign('creator_id')->references('id')->on('creators');
         });
     }
 
@@ -28,7 +25,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('saved_posts');
+        Schema::dropIfExists('creator_posts');
         Schema::enableForeignKeyConstraints();
     }
 };

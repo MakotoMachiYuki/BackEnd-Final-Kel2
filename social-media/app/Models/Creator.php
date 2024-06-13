@@ -15,10 +15,6 @@ class Creator extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'creator_id',
+        'user_id',
     ];
-
-    public function post(){
-        return $this->hasMany(Post::class, 'creator_id');
-    }
 }

@@ -40,7 +40,7 @@ Route::get('/dashboard', function () {
     return view('dasboard.index');
 })->middleware('auth');
 
-Route::post('/savedPost', [savedPostController::class, 'savedPost']) -> name('saveBookmark')
+Route::post('/home', [savedPostController::class, 'savedPost']) -> name('savedPost');
 
 
 ?>

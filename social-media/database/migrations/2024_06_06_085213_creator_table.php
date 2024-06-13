@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('creator', function (Blueprint $table){
+        Schema::create('creators', function (Blueprint $table){
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('post_id')->constrained('posts');
+            $table->unsignedBigInteger('post_id');
+            $table->foreign('post_id')->references('id')->on('posts');
             $table->timestamps();
         });
     }
@@ -24,6 +24,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('creator');
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('creators');
+        Schema::enableForeignKeyConstraints();
     }
 };
