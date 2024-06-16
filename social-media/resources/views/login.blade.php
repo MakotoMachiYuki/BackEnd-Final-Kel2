@@ -15,14 +15,23 @@
     <h1 class="judul">Login</h1>
     
     <form class = "loginPage" action = "{{route('loginAccount')}}" method = "post">
-    @csrf
         <label>Input your : </label>
-        <input type="text" placeholder="Username" name = "username" required>
+        <input type="text" placeholder="Username" name = "username" required value = "{{old('username')}}">
         <br>
 
         <label>Input your :</label>
         <input type="password" placeholder="Input Password" name = "password" required>
         <br>
+
+        @csrf
+        @if ($errors->any())
+            <div class ="wrongLogin">
+                    @foreach($errors->all() as $error)
+                    {{$error}}
+                    @endforeach
+            </div>
+        <br>
+        @endif
 
         <input class = "submit" type="submit" name = "login" value = "Log In">
         <br>

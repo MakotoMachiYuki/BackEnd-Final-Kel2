@@ -14,8 +14,9 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->string('username')->unique();
+            $table->string('firstName');
+            $table->string('lastName')->nullable();
             $table->string('email')->unique();
             $table->date('dateOfBirth');
             $table->timestamp('email_verified_at')->nullable();
@@ -26,8 +27,9 @@ return new class extends Migration
 
         DB::table('users')->insert(
             array(
-                'name' => 'Admin',
                 'username' => 'Admin',
+                'firstName' => 'Admin',
+                'lastName' => 'GrandMaster',
                 'email' => 'Admin@gmail.com',
                 'dateOfBirth' => '2000-1-1',
                 'password' => Hash::make('Admin123!')

@@ -19,7 +19,11 @@ class loginController extends Controller
     }
 
     public function loginAccount(Request $request)
-    {
+    {   
+        $messages = [
+            "wrongLogin" => "Email or Password is Wrong!"
+        ];
+
         $data = [
             'username' => $request -> input('username'),
             'password'=> $request -> input('password'),
@@ -31,7 +35,8 @@ class loginController extends Controller
         else {
             Session::put('login', False);
             Session::flash('error','Emails or Password Wrong!');
-            return redirect('/login');
+            return back()->withInput($request->input())->withErrors([$messages]);
+
         }
     }
 
