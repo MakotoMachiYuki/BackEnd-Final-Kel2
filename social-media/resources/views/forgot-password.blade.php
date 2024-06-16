@@ -21,16 +21,16 @@
 
     <h2>Forgot Password</h2>
 
-    <form class = "forgotpasswordPage" action = "{{route('sendReset')}}" method = "post">
+    <form class = "forgotpasswordPage" action = "{{route('verifyUsername')}}" method = "post">
         @csrf
         <label>Enter your username to reset your password: </label>
         <input type="username" placeholder= "Username" name="username" required>
         <br>
-
-        <input class="submit" type="submit" value="Send Password Reset Link">
+        
+        <input class="submit" type="submit" value="Verify Username">
         <br>
         <p>Remembered your password? <a href="/login">Login here!</a></p>
-        </form>
-    <a href="/reset-password">Reset Password </a>
+        </form>  
+
 </body>
 </html>
