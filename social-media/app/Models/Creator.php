@@ -17,4 +17,16 @@ class Creator extends Model
     protected $fillable = [
         'user_id',
     ];
+
+    //Connect Creator and Post (condition : many to many) in the Creator_posts
+    public function post()
+    {
+        return $this->belongsToMany(Post::class, 'creator_posts', 'creator_id', 'post_id');
+    }
+
+    //Connect Creator and User (condition : oone to one) 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

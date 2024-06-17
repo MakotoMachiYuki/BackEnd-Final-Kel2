@@ -9,6 +9,7 @@ use App\Http\Controllers\postController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\registerController;
+use App\Http\Controllers\creatorController;
 
 
 Route::get('/',[homeController::class, 'index'])->name('home')->middleware('auth');
@@ -40,7 +41,7 @@ Route::get('/dashboard', function () {
     return view('dasboard.index');
 })->middleware('auth');
 
-Route::post('/home', [savedPostController::class, 'savedPost']) -> name('savedPost');
+Route::post('/save-post', [savedPostController::class, 'savePost'])->name('savePost')->middleware('auth');
 
-
+Route::post('/create_creator', [CreatorController::class, 'createCreator'])->name('createCreator')->middleware('auth');
 ?>

@@ -64,7 +64,6 @@
                         $statement->bindParam(':limit', $postsPerPage, PDO::PARAM_INT);
                         $statement->bindParam(':offset', $offset, PDO::PARAM_INT);
                         $statement->execute();
-
                         
                         // Fetch data
                         while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
@@ -72,9 +71,12 @@
                             <div>
                                 <h2>{$row['title']}</h2>
                                 <p>{$row['text']}</p>
-                                <form method='POST' action='{{ route('savedPost')}}'>
-                                    <button type='submit' class='btn btn-default'>save</button>
+                                <form action='" . route('savePost') . "' method='POST'>
+                                    @csrf
+                                    <input type='hidden' name='post_id' value='{$row['id']}'>
+                                    <button type='submit'>save</button>
                                 </form>
+                            </div>
                             ";
                         }
                     } catch (PDOException $e) {

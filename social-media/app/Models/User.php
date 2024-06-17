@@ -24,11 +24,6 @@ class User extends Authenticatable
         'password',
     ];
 
-    public function savedPost()
-    {
-        return $this->hasMany(SavedPost::class, 'user_id');
-    }
-
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -39,8 +34,12 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function savedPosts(){
-        return $this->hasMany(SavedPost::class);
+    public function creator(){
+        return $this->hasOne(Creator::class);
+    }
+
+    public function savedPost(){
+        return $this->hasMany(Saved_post::class, 'user_id', 'id');
     }
 
     /**

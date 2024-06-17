@@ -18,4 +18,14 @@ class Post extends Model
         'title',
         'text',
     ];
+
+    public function creator()
+    {
+        return $this->belongsToMany(Creator::class, 'creator_posts', 'post_id', 'creator_id');
+    }
+
+    public function savedPost()
+    {
+        return $this->hasMany(Saved_post::class);
+    }
 }
