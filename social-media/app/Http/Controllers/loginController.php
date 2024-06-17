@@ -19,8 +19,8 @@ class loginController extends Controller
     }
 
     public function loginAccount(Request $request)
-    {   
-        $messages = [
+    {  
+         $messages = [
             "wrongLogin" => "Incorrect Email or Password!"
         ];
 

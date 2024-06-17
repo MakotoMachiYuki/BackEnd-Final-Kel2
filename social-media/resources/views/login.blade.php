@@ -21,6 +21,7 @@
     @endif
 
     <form class = "loginPage" action = "{{route('loginAccount')}}" method = "post">
+    @csrf
         <label>Input your Username: </label>
         <input type="text" placeholder="Username" name = "username" required value = "{{old('username')}}">
         <br>
@@ -29,7 +30,6 @@
         <input type="password" placeholder="Input Password" name = "password" required>
         <br>
 
-        @csrf
         @if ($errors->any())
             <div class ="wrongLogin">
                     @foreach($errors->all() as $error)

@@ -20,8 +20,11 @@
     </header>
     <h1>Halaman Settings</h1>
 
-    <a href="/logout" target="_self">Logout</a>
     <a href="/change_account_information" target = "_self"> Change Account Information</a>
+    
+    <br>
+    
+    <a href="/logout" target="_self">Logout</a>
 
 </body>
 </html>

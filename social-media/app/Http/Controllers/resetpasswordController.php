@@ -32,6 +32,5 @@ class ResetPasswordController extends Controller
        $user->save();
 
         return redirect('/login')->with('status', 'Password has been reset!');
+    }
 }
-}
-?>
