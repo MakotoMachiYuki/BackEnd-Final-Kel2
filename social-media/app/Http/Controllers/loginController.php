@@ -21,7 +21,7 @@ class loginController extends Controller
     public function loginAccount(Request $request)
     {   
         $messages = [
-            "wrongLogin" => "Email or Password is Wrong!"
+            "wrongLogin" => "Incorrect Email or Password!"
         ];
 
         $data = [
@@ -44,6 +44,6 @@ class loginController extends Controller
     {   
         Auth::logout();
         Session::flush();
-        return redirect(\URL::previous());    
+        return redirect('/home');   
     }
 }

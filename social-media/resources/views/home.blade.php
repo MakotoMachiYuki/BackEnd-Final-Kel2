@@ -19,7 +19,7 @@
         <a href="/post" target="_self">Post</a>
         <a href="/about" target="_self">Profile</a>
         <a href="/settings" target="_self">Settings</a>
-        <a href="/logout" class = "logout"> Logout</a> 
+
         </nav>
     </header>
         </nav>

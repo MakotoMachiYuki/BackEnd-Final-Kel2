@@ -4,34 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>CODEGRAM | Login</title>
+    <title>CODEGRAM | Settings</title>
 </head>
 <body>
     <header class="header">
         <a href="#" class="logo">CODEGRAM</a>
 
+        <nav class="navbar">
+        <a href="/" target="_self">Home</a>
+        <a href="/post" target="_self">Post</a>
+        <a href="/about" target="_self">Profile</a>
+        <a href="/settings" target="_self">Settings</a>
+        </nav>
     </header>
-
-    <h1 class="judul">Login</h1>
-    
-    @if (session('status'))
-        <div class="alert alert-success">
-            {{ session('status')}}
-        </div>
-    @endif
+    <h1 class ="judul">C    hange Account</h1>
 
     <form class = "loginPage" action = "{{route('loginAccount')}}" method = "post">
-        <label>Input your Username: </label>
-        <input type="text" placeholder="Username" name = "username" required value = "{{old('username')}}">
-        <br>
 
-        <label>Pasword:</label>
+        <label>Input your password:</label>
         <input type="password" placeholder="Input Password" name = "password" required>
         <br>
 
         @csrf
         @if ($errors->any())
-            <div class ="wrongLogin">
+            <div class ="wrongPassword">
                     @foreach($errors->all() as $error)
                     {{$error}}
                     @endforeach
@@ -41,12 +37,6 @@
 
         <input class = "submit" type="submit" name = "login" value = "Log In">
         <br>
-        <p> Didn't have an account? <a href = "/create_account" > Register Now!</a></p>
-        <p> Forgot your password? <a href="/forgot-password">Reset Here!</a></p> 
 
-
-   
-
- 
 </body>
 </html>
