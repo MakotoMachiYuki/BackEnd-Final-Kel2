@@ -19,6 +19,7 @@ class postController extends Controller
     {
         $userId = Auth::id();
         $user = Auth::user();
+        $imagePath = $request->file('post-images')->store('post-images');
         $creator = $user->creator()->first();
         
         if (!$creator) {
@@ -28,30 +29,16 @@ class postController extends Controller
         }
         
         $post = Post::create([
+            'image' => $imagePath,
             'title' => $request->title,
             'text'=> $request->text,
         ]);
         $post->save();
+        return redirect('home');
       }
     public function store(Request $request)
     {
         dd($request->all());
-    }
-
-    public function createPost(Request $request)
-    {
-
-    $imagePath = $request->file('post-images')->store('post-images');
-
- 
-    $post = Post::create([
-        'image' => $imagePath,
-        'title' => $request->title,
-        'text' => $request->text,
-    ]);
-
-        $creator->post()->attach($post->id);
-        return redirect('home');
     }
 
     public function likePost($id)
