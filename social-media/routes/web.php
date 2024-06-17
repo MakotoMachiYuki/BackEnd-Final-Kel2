@@ -4,12 +4,15 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\savedPostController;
 use App\Http\Controllers\postController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\registerController;
+use App\Http\Controllers\creatorController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ResetPasswordController;
+
 
 Route::get('/',[homeController::class, 'index'])->name('home')->middleware('auth');
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
@@ -36,9 +39,18 @@ Route::get('/settings', function () {
     return view('settings');
 });
 
+Route::get('/dashboard', function () {
+    return view('dasboard.index');
+})->middleware('auth');
+
+Route::post('/save-post', [savedPostController::class, 'addSavedPost'])->name('addSavedPost')->middleware('auth');
+
+Route::post('/create_creator', [CreatorController::class, 'createCreator'])->name('createCreator')->middleware('auth');
+
 Route::get('/forgot-password', [ForgotPasswordController::class,'showForgotPasswordForm'])->name('password.request');
 Route::post('/forgot-password', [ForgotPasswordController::class, 'verifyUsername'])->name('verifyUsername');
 Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('reset');
 
 
 Route::post('/post/{id}/like', [postController::class, 'likePost'])->name('likePost');
+

@@ -49,7 +49,7 @@
                     $postsPerPage = 5; // Number of posts per page
                     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
                     $offset = ($page - 1) * $postsPerPage;
-                    
+
                     try {
                         // Establish connection
                         $pdo = new PDO("$connection:host=$host;dbname=$dbname", $user, $password);
@@ -58,7 +58,7 @@
                         // Get total number of posts
                         $totalPosts = $pdo->query("SELECT COUNT(*) FROM posts")->fetchColumn();
                         $totalPages = ceil($totalPosts / $postsPerPage);
-                    
+
                         // Perform query with limit and offset
                         $statement = $pdo->prepare("SELECT * FROM posts ORDER BY id DESC LIMIT :limit OFFSET :offset");
                         $statement->bindParam(':limit', $postsPerPage, PDO::PARAM_INT);
@@ -79,6 +79,11 @@
         <form action='" . route('likePost', ['id' => $row['id']]) . "' method='POST'> 
                                 " . csrf_field() . " 
                                 <button type='submit' class='btn btn-primary likeButton'>LIKE <span class='counter'>{$row['likes_count']}</span></button><br><br>
+                                </form>
+                                <form action='.route('addSavedPost').' method="POST">
+                                    '.csrf_field().'
+                                    <input type="hidden" name="post_id" value='.$row['id'].'>
+                                    <button type="submit">save</button>
                                 </form>
                                 </div>
         ";

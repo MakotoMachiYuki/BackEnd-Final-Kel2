@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Post;
+use App\Models\Creator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -12,6 +14,25 @@ class postController extends Controller
     {
         return view('post');
     }
+    
+    public function createPost(Request $request)
+    {
+        $userId = Auth::id();
+        $user = Auth::user();
+        $creator = $user->creator()->first();
+        
+        if (!$creator) {
+            $creator = Creator::create([
+                'user_id' => $userId
+            ]);
+        }
+        
+        $post = Post::create([
+            'title' => $request->title,
+            'text'=> $request->text,
+        ]);
+        $post->save();
+      }
     public function store(Request $request)
     {
         dd($request->all());
@@ -28,10 +49,9 @@ class postController extends Controller
         'title' => $request->title,
         'text' => $request->text,
     ]);
-          
-    
 
-            return redirect('home');
+        $creator->post()->attach($post->id);
+        return redirect('home');
     }
 
     public function likePost($id)
