@@ -15,9 +15,12 @@ class Post extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'image',
         'title',
         'text',
+        'likes_count',
     ];
+
 
     public function creator()
     {
@@ -28,4 +31,6 @@ class Post extends Model
     {
         return $this->hasMany(Saved_post::class);
     }
+
+
 }

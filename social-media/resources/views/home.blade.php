@@ -19,7 +19,7 @@
         <a href="/post" target="_self">Post</a>
         <a href="/about" target="_self">Profile</a>
         <a href="/settings" target="_self">Settings</a>
-        <a href="{{route('logout')}}" class = "logout"> Logout</a> 
+        <a href="/logout" class = "logout"> Logout</a> 
         </nav>
     </header>
         </nav>
@@ -28,7 +28,7 @@
             <div class="container">
                 <div class="text-center my-5">
                     <h1 class="fw-bolder">Welcome {{Auth::user() -> username}} ! </h1>
-                    <p class="lead mb-0">A Bootstrap 5 starter layout for your next blog homepage</p>
+                    <p class="lead mb-0">Have some fun in codegram!</p>
                 </div>
             </div>
         </header>
@@ -60,28 +60,39 @@
                         $totalPages = ceil($totalPosts / $postsPerPage);
 
                         // Perform query with limit and offset
-                        $statement = $pdo->prepare("SELECT * FROM posts LIMIT :limit OFFSET :offset");
+                        $statement = $pdo->prepare("SELECT * FROM posts ORDER BY id DESC LIMIT :limit OFFSET :offset");
                         $statement->bindParam(':limit', $postsPerPage, PDO::PARAM_INT);
                         $statement->bindParam(':offset', $offset, PDO::PARAM_INT);
                         $statement->execute();
-                        
-                        // Fetch data
-                        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
-                            echo '
-                            <div>
-                                <h2>'.$row['title'].'</h2>
-                                <p>'.$row['text'].'</p>
+                    
+
+                     // Fetch data
+        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+            // Convert newlines to <br> for proper display
+            $text = nl2br(htmlspecialchars($row['text']));
+            $imagePath = htmlspecialchars($row['image']); // assuming 'image' is the column name
+        echo "
+        <div class='post'>
+        <img src='storage/$imagePath' alt='Post Image' width='500' height='300'>
+        <h2>" . htmlspecialchars($row['title']) . "</h2>
+        <p>" . nl2br(htmlspecialchars($row['text'])) . "</p>
+        <form action='" . route('likePost', ['id' => $row['id']]) . "' method='POST'> 
+                                " . csrf_field() . " 
+                                <button type='submit' class='btn btn-primary likeButton'>LIKE <span class='counter'>{$row['likes_count']}</span></button><br><br>
+                                </form>
                                 <form action='.route('addSavedPost').' method="POST">
                                     '.csrf_field().'
                                     <input type="hidden" name="post_id" value='.$row['id'].'>
                                     <button type="submit">save</button>
                                 </form>
-                            </div>
-                            ';
-                        }
+                                </div>
+        ";
+        }
                     } catch (PDOException $e) {
                         echo "An error occurred while connecting to the database: " . $e->getMessage();
                     }
+                
+
                     
                     // Pagination controls
                     echo '<div class="pagination">';
