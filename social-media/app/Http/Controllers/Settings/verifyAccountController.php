@@ -5,31 +5,34 @@ namespace App\Http\Controllers\Settings;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Session;
 
-class verifyAccount extends Controller
-{
+class verifyAccountController extends Controller
+{   
+
+    public function verifyAccountIndex()
+    {   
+        return view('verifyAccount');
+    }
+
     public function verifyAccount(Request $request)
     {
         $messages = [
             "wrongPassword" => "Incorrect Password!"
         ];
 
-        $username = Auth::username();
+        $username = Auth::user() -> username;
 
         $data = [
-            'username' => $request -> $username,
+            'username' => $username,
             'password' => $request -> input('password')
         ];
         if(Auth::attempt($data))
         {   
-            Session::put('verify', True);
-            return back()->with('verify');
+            return redirect('change_account_information')->with('verified', 'userIsVerified');
         }
         else
         {   
-            Session::put('verify', False);
-            return back()->withInput()->withErrors([$messages])->with('verify');
+            return back()->withInput()->withErrors([$messages]);
         }
 
     }

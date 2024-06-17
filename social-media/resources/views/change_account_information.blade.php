@@ -17,26 +17,7 @@
         <a href="/settings" target="_self">Settings</a>
         </nav>
     </header>
-    <h1 class ="judul">C    hange Account</h1>
-
-    <form class = "loginPage" action = "{{route('loginAccount')}}" method = "post">
-
-        <label>Input your password:</label>
-        <input type="password" placeholder="Input Password" name = "password" required>
-        <br>
-
-        @csrf
-        @if ($errors->any())
-            <div class ="wrongPassword">
-                    @foreach($errors->all() as $error)
-                    {{$error}}
-                    @endforeach
-            </div>
-        <br>
-        @endif
-
-        <input class = "submit" type="submit" name = "login" value = "Log In">
-        <br>
-
+    <h1 class ="judul">Change Account Information</h1>
+        <h2> Test </h2>
 </body>
 </html>
