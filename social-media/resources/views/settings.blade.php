@@ -15,9 +15,13 @@
         <a href="/post" target="_self">Post</a>
         <a href="/about" target="_self">Profile</a>
         <a href="/settings" target="_self">Settings</a>
-        <a href="/login" class="login" >Login</a>
+
         </nav>
     </header>
     <h1>Halaman Settings</h1>
+
+    <a href="/logout" target="_self">Logout</a>
+    <a href="/change_account_information" target = "_self"> Change Account Information</a>
+
 </body>
 </html>
