@@ -18,6 +18,16 @@
         <label>Enter your username to reset your password: </label>
         <input type="username" placeholder= "Username" name="username" required>
         <br>
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{$error}}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         
         <input class="submit" type="submit" value="Verify Username">
         <br>
