@@ -67,17 +67,17 @@
                         
                         // Fetch data
                         while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
-                            echo "
+                            echo '
                             <div>
-                                <h2>{$row['title']}</h2>
-                                <p>{$row['text']}</p>
-                                <form action='" . route('savePost') . "' method='POST'>
-                                    @csrf
-                                    <input type='hidden' name='post_id' value='{$row['id']}'>
-                                    <button type='submit'>save</button>
+                                <h2>'.$row['title'].'</h2>
+                                <p>'.$row['text'].'</p>
+                                <form action='.route('addSavedPost').' method="POST">
+                                    '.csrf_field().'
+                                    <input type="hidden" name="post_id" value='.$row['id'].'>
+                                    <button type="submit">save</button>
                                 </form>
                             </div>
-                            ";
+                            ';
                         }
                     } catch (PDOException $e) {
                         echo "An error occurred while connecting to the database: " . $e->getMessage();

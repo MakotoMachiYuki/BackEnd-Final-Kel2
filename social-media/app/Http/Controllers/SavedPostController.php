@@ -14,7 +14,7 @@ class savedPostController extends Controller
         ]);
 
         $savedPost = Saved_post::create([
-            'user_id' => Auth()::id,
+            'user_id' => Auth::id(),
             'post_id' => $request->post_id,
             'saved_date' => now(),
         ]);
