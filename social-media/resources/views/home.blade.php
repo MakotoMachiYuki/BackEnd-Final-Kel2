@@ -100,7 +100,11 @@
                                 </form>
         </div>
         ";
+<<<<<<< HEAD
 >>>>>>> 2f8056e (fix merge issue)
+=======
+>>>>>>> 2f8056e19b3ab8b2a0deef179360324f99c02527
+>>>>>>> efb94f71ce7765205e922ca02999c1d0f151ce53
         }
                     } catch (PDOException $e) {
                         echo "An error occurred while connecting to the database: " . $e->getMessage();
