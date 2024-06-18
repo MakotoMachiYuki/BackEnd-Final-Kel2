@@ -15,18 +15,21 @@
         <a href="/post" target="_self">Post</a>
         <a href="/about" target="_self">Profile</a>
         <a href="/settings" target="_self">Settings</a>
-        <a href="/login" class="login" >Login</a>
+        <a href="/login" class="login">Login</a>
         </nav>
     </header>
 
     </main>
-    <h1>Profile</h1>
-    <section class="about">
-    <p><strong>Username : </strong> {{Auth::user() -> username}}</p>
-    <p><strong>Email : </strong>{{Auth::user() -> email}}</p>
-    <p> Hallo, i'm chichii <p>
-    </section>    
-    <h1>Your Post</h1>
+     <h1>Profile</h1>
+     <section class="about">
+        <p><strong>Username : </strong> {{Auth::user() -> username}}</p>
+        <p><strong>Email : </strong>{{Auth::user() -> email}}</p>
+        <p> Hallo, i'm {{$user -> username}}</p>
+     </section>   
+
+     <h1>Your Posts</h1>
+     <section class="post">
+           
     
 
 </body>
