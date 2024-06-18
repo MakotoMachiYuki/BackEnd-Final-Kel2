@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Settings;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Session;
 
 class verifyAccountController extends Controller
 {   
@@ -28,7 +29,7 @@ class verifyAccountController extends Controller
         ];
         if(Auth::attempt($data))
         {   
-            return redirect('change_account_information')->with('verified', 'userIsVerified');
+            return redirect('settings/change_account_information')->with('verified', 'UserIsVerified');
         }
         else
         {   

@@ -48,10 +48,25 @@ Route::group(['middleware' => 'auth'], function()
         return view('dasboard.index');
     });
 
-    Route::post('/verifyAccount', [verifyAccountController::class, 'verifyAccount']) -> name('verifyAccount');
-    Route::get('/verifyAccount', [verifyAccountController::class, 'verifyAccountIndex']) -> name('verifyAccountIndex');
+    Route::prefix('settings')->group(function ()
+    {
+        Route::post('/verifyAccount', [verifyAccountController::class, 'verifyAccount']) -> name('verifyAccount');
+        Route::get('/verifyAccount', [verifyAccountController::class, 'verifyAccountIndex']) -> name('verifyAccountIndex');
+        Route::get('/change_account_information',[ChangeAccountInformationController::class, 'ChangeAccountInformationIndex'])-> name('ChangeAccountInformationIndex');
 
-    Route::get('/change_account_information',[ChangeAccountInformationController::class, 'ChangeAccountInformationIndex'])-> name('ChangeAccountInformationIndex');
+        Route::prefix('change_account_information')->group(function()
+        {
+            Route::get('/changeEmail', [ChangeAccountInformationController::class, 'changeEmailIndex'])->name('changeEmailIndex');
+            Route::post('/changeEmail', [ChangeAccountInformationController::class, 'changeEmail'])->name('changeEmail');
+
+            Route::get('/changeUsername', [ChangeAccountInformationController::class, 'changeUsernameIndex'])->name('changeUsernameIndex');
+            Route::post('/changeUsername', [ChangeAccountInformationController::class, 'changeUsername'])->name('changeUsername');
+
+            Route::get('/changePassword', [ChangeAccountInformationController::class, 'changePasswordIndex'])->name('changePasswordIndex');
+            Route::post('/changePassword', [ChangeAccountInformationController::class, 'changePassword'])->name('changePassword');
+
+        });
+    });
 });
 
 Route::get('/logout', [loginController::class, 'logout']) ->name('logout');

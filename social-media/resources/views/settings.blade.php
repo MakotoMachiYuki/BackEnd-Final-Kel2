@@ -20,7 +20,7 @@
     </header>
     <h1>Halaman Settings</h1>
 
-    <a href="/change_account_information" target = "_self"> Change Account Information</a>
+    <a href="/settings/change_account_information" target = "_self"> Change Account Information</a>
     
     <br>
     

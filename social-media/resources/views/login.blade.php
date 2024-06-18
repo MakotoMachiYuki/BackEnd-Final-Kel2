@@ -43,10 +43,6 @@
         <br>
         <p> Didn't have an account? <a href = "/create_account" > Register Now!</a></p>
         <p> Forgot your password? <a href="/forgot-password">Reset Here!</a></p> 
-
-
-   
-
- 
+      </form>  
 </body>
 </html>
