@@ -10,6 +10,7 @@ use App\Http\Controllers\homeController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\registerController;
 use App\Http\Controllers\creatorController;
+use App\Http\Controllers\Followercontroler;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ResetPasswordController;
 
@@ -54,3 +55,5 @@ Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name(
 
 Route::post('/post/{id}/like', [postController::class, 'likePost'])->name('likePost');
 
+Route::get('/follow/{user}', [Followercontroler::class, 'follow']) -> name('follow');
+Route::delete('/unfollow/{user}', [Followercontroler::class, 'unfollow']) -> name('unfollow');
