@@ -12,6 +12,7 @@ use App\Http\Controllers\registerController;
 use App\Http\Controllers\creatorController;
 use App\Http\Controllers\forgotPasswordController;
 use App\Http\Controllers\resetPasswordController;
+use App\Http\Controllers\deleteAccountController;
 
 
 Route::get('/',[homeController::class, 'index'])->name('home')->middleware('auth');
@@ -54,3 +55,5 @@ Route::post('/reset-password', [resetPasswordController::class, 'reset'])->name(
 
 Route::post('/post/{id}/like', [postController::class, 'likePost'])->name('likePost');
 
+Route::get('/settings', [deleteAccountController::class, 'index'])->name('settings')->middleware('auth');
+Route::delete('/settings/delete-account', [deleteAccountController::class, 'deleteAccount'])->name('deleteAccount')->middleware('auth');
