@@ -12,6 +12,7 @@ use App\Http\Controllers\registerController;
 use App\Http\Controllers\creatorController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\CommentController;
 
 
 Route::get('/',[homeController::class, 'index'])->name('home')->middleware('auth');
@@ -53,4 +54,5 @@ Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name(
 
 
 Route::post('/post/{id}/like', [postController::class, 'likePost'])->name('likePost');
+Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->middleware('auth')->name('commentsroute');
 

@@ -53,4 +53,10 @@ class postController extends Controller
 
         return back();
     }
+    public function index()
+{
+    $posts = Post::with('comments.user')->get();
+    return view('home', compact('posts'));
+}
+
 }

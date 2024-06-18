@@ -81,6 +81,22 @@
                                     <button type='submit' class='btn btn-primary likeButton'>LIKE <span class='counter'>{$row['likes_count']}</span></button><br><br>
                             </form>
 
+                            <h4>Comments</h4>
+                            @foreach ($post->comments as $comment)
+                            <div class='mb-2'>
+                                <p>{{ $comment->content }}</p>
+                                <small>By {{ $comment->user->username }}</small>
+                            </div>
+                            @endforeach
+
+                            <form action='{{ route('commentsroute', ['post' => $post->id]) }}' method='POST'>
+                                " . csrf_field() . "
+                                <div class='form-group'>
+                                <textarea class='form-control'name='content' rows='3' required></textarea>
+                                </div>
+                                <button type='submit' class='btn btn-primary'>Add Comment</button>
+                            </form>
+
                             <form action='" . route('addSavedPost')."'method='POST'>
                                 " . csrf_field() . "
                                     <input type='hidden' name='post_id' value='{$row['id']}'>
@@ -91,10 +107,7 @@
         }
                     } catch (PDOException $e) {
                         echo "An error occurred while connecting to the database: " . $e->getMessage();
-                    }
-                
-
-                    
+                    }                    
                     // Pagination controls
                     echo '<div class="pagination">';
                     if ($page > 1) {
