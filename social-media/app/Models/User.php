@@ -42,6 +42,29 @@ class User extends Authenticatable
         return $this->hasMany(Saved_post::class, 'user_id', 'id');
     }
 
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'following_id');
+    }
+
+    
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'following_id', 'follower_id');
+    }
+
+    public function checkfollowers($userId)
+    {
+        return $this->following()->where('followers_id', $userId)->exist();
+    
+    }
+
+    
+    public function checkfollowing($userId)
+    {
+        return $this->followers()->where('following_id', $userId)->exist();
+    
+    }
     /**
      * Get the attributes that should be cast.
      *
