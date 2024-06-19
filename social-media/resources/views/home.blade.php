@@ -66,7 +66,7 @@
                     
 
                      // Fetch data
-                     while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+                        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
                         // Convert newlines to <br> for proper display
                             $text = nl2br(htmlspecialchars($row['text']));
                             $imagePath = htmlspecialchars($row['image']); // assuming 'image' is the column name
