@@ -70,7 +70,8 @@
         while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
             // Convert newlines to <br> for proper display
             $text = nl2br(htmlspecialchars($row['text']));
-            $imagePath = htmlspecialchars($row['image']); // assuming 'image' is the column name
+            $imagePath = htmlspecialchars($row['image']); // assuming 'image' is the column name\
+            
         echo "
             <div class='post'>
                 <img src='storage/$imagePath' alt='Post Image' width='500' height='300'>
@@ -82,14 +83,16 @@
                             </form>
 
                             <h4>Comments</h4>
-                            @foreach ($post->comments as $comment)
+                            <form action='" . route('getComment', ['post' => $row['id']]) . "' method = 'GET'>
+                            @foreach (post->comments as comment)
                             <div class='mb-2'>
-                                <p>{{ $comment->content }}</p>
-                                <small>By {{ $comment->user->username }}</small>
+                                <p>{{ comment->content }}</p>
+                                <small>By {{ comment->user->username }}</small>
                             </div>
                             @endforeach
+                            <form>
 
-                            <form action='{{ route('commentsroute', ['post' => $post->id]) }}' method='POST'>
+                            <form action=' " . route('commentsroute', ['post' => $row['id']]) . "' method='POST'>
                                 " . csrf_field() . "
                                 <div class='form-group'>
                                 <textarea class='form-control'name='content' rows='3' required></textarea>

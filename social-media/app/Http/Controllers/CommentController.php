@@ -21,6 +21,17 @@ class CommentController extends Controller
             'post_id' => $post->id,
         ]);
 
-        return back()->with('Your Comment Has Been Added!');
+        return back()->with('Your Comment Has Been Added');
+    }
+
+    public function getComment(Post $post)
+    {   
+
+
+
+        $comments = [
+            'comments' => $post,
+        ];
+        return back()->withErrors($comments);
     }
 }
