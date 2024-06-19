@@ -41,7 +41,8 @@ Route::get('/dashboard', function () {
     return view('dasboard.index');
 })->middleware('auth');
 
-Route::post('/save-post', [savedPostController::class, 'addSavedPost'])->name('addSavedPost')->middleware('auth');
+Route::post('/save_post', [savedPostController::class, 'addSavedPost'])->name('addSavedPost')->middleware('auth');
+Route::post('/remove_post', [savedPostController::class, 'removeSavedPost'])->name('removeSavedPost')->middleware('auth');
 
 Route::post('/create_creator', [CreatorController::class, 'createCreator'])->name('createCreator')->middleware('auth');
 ?>

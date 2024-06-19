@@ -42,6 +42,11 @@ class User extends Authenticatable
         return $this->hasMany(Saved_post::class, 'user_id', 'id');
     }
 
+    public function checkSaved($post_id)
+    {
+        return $this->savedPost()->where('post_id', $post_id)->exists();
+    }
+
     /**
      * Get the attributes that should be cast.
      *
