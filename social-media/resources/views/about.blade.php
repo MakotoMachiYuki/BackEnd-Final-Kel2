@@ -29,7 +29,7 @@
 
      <h1>Your Posts</h1>
      <section class="post">
-           
+</section>
     
 
 </body>
