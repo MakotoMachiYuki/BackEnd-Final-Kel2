@@ -43,6 +43,11 @@ Route::group(['middleware' => 'auth'], function()
     Route::post('/save-post', [savedPostController::class, 'addSavedPost'])->name('addSavedPost');
     Route::post('/create_creator', [CreatorController::class, 'createCreator'])->name('createCreator');
 
+    Route::get('/settings', function ()
+    {
+        return view('settings');
+    });
+
     Route::prefix('settings')->group(function ()
     {
         Route::post('/verifyAccount', [verifyAccountController::class, 'verifyAccount']) -> name('verifyAccount');
