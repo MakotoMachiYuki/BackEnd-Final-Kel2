@@ -42,6 +42,7 @@ class User extends Authenticatable
         return $this->hasMany(Saved_post::class, 'user_id', 'id');
     }
 
+<<<<<<< HEAD
     public function followers()
     {
         return $this->belongsToMany(User::class, 'followers', 'follower_id', 'following_id');
@@ -65,6 +66,13 @@ class User extends Authenticatable
         return $this->following()->where('following_id', $userId)->exist();
     
     }
+=======
+    public function checkSaved($post_id)
+    {
+        return $this->savedPost()->where('post_id', $post_id)->exists();
+    }
+
+>>>>>>> 4a35139 (Button still error)
     /**
      * Get the attributes that should be cast.
      *

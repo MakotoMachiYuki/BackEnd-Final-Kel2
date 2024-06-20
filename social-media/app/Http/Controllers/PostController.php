@@ -17,14 +17,14 @@ class postController extends Controller
     
     public function createPost(Request $request)
     {
-        $userId = Auth::id();
+        $user_id = Auth::id();
         $user = Auth::user();
         $imagePath = $request->file('post-images')->store('post-images');
         $creator = $user->creator()->first();
         
         if (!$creator) {
             $creator = Creator::create([
-                'user_id' => $userId
+                'user_id' => $user_id
             ]);
         }
         
@@ -33,7 +33,9 @@ class postController extends Controller
             'title' => $request->title,
             'text'=> $request->text,
         ]);
+
         $post->save();
+        $creator->post()->attach($post->id);
         return redirect('home');
       }
     public function store(Request $request)

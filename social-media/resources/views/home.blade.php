@@ -66,28 +66,40 @@
                     
 
                      // Fetch data
-        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
-            // Convert newlines to <br> for proper display
-            $text = nl2br(htmlspecialchars($row['text']));
-            $imagePath = htmlspecialchars($row['image']); // assuming 'image' is the column name
-        echo "
-            <div class='post'>
-                <img src='storage/$imagePath' alt='Post Image' width='500' height='300'>
-                    <h2>" . htmlspecialchars($row['title']) . "</h2>
-                        <p>" . nl2br(htmlspecialchars($row['text'])) . "</p>
-                            <form action='" . route('likePost', ['id' => $row['id']]) . "' method='POST'> 
-                                " . csrf_field() . " 
-                                    <button type='submit' class='btn btn-primary likeButton'>LIKE <span class='counter'>{$row['likes_count']}</span></button><br><br>
-                            </form>
-
-                            <form action='" . route('addSavedPost')."'method='POST'>
-                                " . csrf_field() . "
-                                    <input type='hidden' name='post_id' value='{$row['id']}'>
-                                    <button type='submit'> save </button>
-                            </form>
-            </div>
-            ";
-        }
+                     while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+                        // Convert newlines to <br> for proper display
+                            $text = nl2br(htmlspecialchars($row['text']));
+                            $imagePath = htmlspecialchars($row['image']); // assuming 'image' is the column name
+                            echo "
+                            <div class='post'>
+                                <img src='storage/$imagePath' alt='Post Image' width='500' height='300'>
+                                <h2>" . htmlspecialchars($row['title']) . "</h2>
+                                <p>" . nl2br(htmlspecialchars($row['text'])) . "</p>
+                                <form action='" . route('likePost', ['id' => $row['id']]) . "' method='POST'> 
+                                    " . csrf_field() . " 
+                                    <button type='submit' class='btn btn-primary likeButton'>LIKE <span class='counter'>{$row['likes_count']}</span></button>
+                                </form>";
+                                
+                            if (Auth::check()) {
+                                if (Auth::user()->checkSaved($row['id'])) {
+                                    echo "
+                                    <form action='" . route('removeSavedPost') . "' method='POST'>
+                                        " . csrf_field() . "
+                                        <input type='hidden' name='post_id' value='" . $row['id'] . "'>
+                                        <button type='submit'>Unsave</button>
+                                    </form>";
+                                } else {
+                                    echo "
+                                    <form action='" . route('addSavedPost') . "' method='POST'>
+                                        " . csrf_field() . "
+                                        <input type='hidden' name='post_id' value='" . $row['id'] . "'>
+                                        <button type='submit'>Save</button>
+                                    </form>";
+                                }
+                            }
+                            
+                            echo "</div>";
+                        }
                     } catch (PDOException $e) {
                         echo "An error occurred while connecting to the database: " . $e->getMessage();
                     }

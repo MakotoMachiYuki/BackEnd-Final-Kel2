@@ -43,6 +43,9 @@ Route::group(['middleware' => 'auth'], function()
     Route::post('/save-post', [savedPostController::class, 'addSavedPost'])->name('addSavedPost');
     Route::post('/create_creator', [CreatorController::class, 'createCreator'])->name('createCreator');
 
+    Route::post('/save_post', [savedPostController::class, 'addSavedPost'])->name('addSavedPost');
+    Route::post('/remove_post', [savedPostController::class, 'removeSavedPost'])->name('removeSavedPost');
+
     Route::get('/settings', function ()
     {
         return view('settings');
@@ -91,4 +94,15 @@ Route::post('/forgot-password', [forgotPasswordController::class, 'verifyUsernam
 Route::post('/reset-password', [resetPasswordController::class, 'reset'])->name('reset');
 
 Route::post('/follow/{user}', [FollowerController::class, 'followUser'])->name('follow');
+
+
+Route::get('/dashboard', function () {
+    return view('dasboard.index');
+})->middleware('auth');
+
+Route::post('/save_post', [savedPostController::class, 'addSavedPost'])->name('addSavedPost')->middleware('auth');
+Route::post('/remove_post', [savedPostController::class, 'removeSavedPost'])->name('removeSavedPost')->middleware('auth');
+
+Route::post('/create_creator', [CreatorController::class, 'createCreator'])->name('createCreator')->middleware('auth');
+?>
 
