@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('text');
-            $table->string('image');
-            $table->timestamp('updated_at')->nullable();
+        Schema::create('password_resets', function (Blueprint $table) {
+            $table->string('username')->index();
+            $table->string('token');
             $table->timestamp('created_at')->nullable();
         });
     }
@@ -26,8 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('posts');
-        Schema::enableForeignKeyConstraints();
+        Schema::dropIfExists('password_resets');
     }
 };

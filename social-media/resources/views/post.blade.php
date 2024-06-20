@@ -19,33 +19,28 @@
         </nav>
     
     </header>
-<div class="col-lg-8">
-       <h1>Halaman create_account</h1>
-       <form class="createPost" action="{{route('createPost')}}" method="POST">
+
+       <h1 class="judul">Create Post</h1>
+       <form class="createPost" action="{{route('createPost')}}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
-            <label>Input your : </label><br>
+            <label for="formFile" class="form-label">Upload Image:</label>
+            <input class="form-control" type="file" id="post-images" name="post-images">
+
+          </div>
+        <div class="mb-3">
+            <label>Input your Title : </label><br>
             <textarea id="title" name="title" placeholder="Enter the title" rows="2" required></textarea>
             <br>
         <div class="mb-3">
-            <label>Input your : </label><br>
+            <label>Input your Caption : </label><br>
             <textarea id="text" name="text" placeholder="Enter the text" rows="5" required></textarea>
             <br>
         </div>
         <button type="submit" class="submit" name="post" value="Create Post">Submit</button>
       </form>
-</div>
+
 </body>
 </html>
 
 
-<!-- 
-    <form>
-        <label>Post choice</label>
-        <select required>
-            <option disabled="disabled" selected>select choice</option>
-            <option>text</option>
-            <option>video</option>
-            <option>image</option>
-        </select>
-    </form> -->

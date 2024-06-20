@@ -10,6 +10,8 @@ use App\Http\Controllers\homeController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\registerController;
 use App\Http\Controllers\creatorController;
+use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\ResetPasswordController;
 
 
 Route::get('/',[homeController::class, 'index'])->name('home')->middleware('auth');
@@ -24,7 +26,7 @@ Route::post('/post', [postController::class, 'createPost']) -> name('createPost'
 
 Route::get('/login', [loginController::class, 'login']) -> name('login');
 Route::post('/login', [loginController::class, 'loginAccount']) -> name('loginAccount');
-Route::get('/', [loginController::class, 'logout']) ->name('logout')->middleware('auth');
+Route::get('/logout', [loginController::class, 'logout']) ->name('logout')->middleware('auth');
 
 Route::get('/create_account', [registerController::class, 'register']) -> name('register');
 Route::post('/create_account', [registerController::class, 'registerAccount']) -> name('registerAccount');
@@ -45,4 +47,11 @@ Route::post('/save_post', [savedPostController::class, 'addSavedPost'])->name('a
 Route::post('/remove_post', [savedPostController::class, 'removeSavedPost'])->name('removeSavedPost')->middleware('auth');
 
 Route::post('/create_creator', [CreatorController::class, 'createCreator'])->name('createCreator')->middleware('auth');
-?>
+
+Route::get('/forgot-password', [ForgotPasswordController::class,'showForgotPasswordForm'])->name('password.request');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'verifyUsername'])->name('verifyUsername');
+Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('reset');
+
+
+Route::post('/post/{id}/like', [postController::class, 'likePost'])->name('likePost');
+
