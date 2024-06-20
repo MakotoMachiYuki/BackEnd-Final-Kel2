@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Saved_post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class savedPostController extends Controller
 {
@@ -25,14 +26,16 @@ class savedPostController extends Controller
     public function removeSavedPost(Request $request)
     {
         $request->validate([
-            'post_id' => 'required|integer|exists:saved_posts,id'
+            'post_id' => 'required|integer|exists:posts,id'
         ]);
 
         $post_id = $request->post_id;
-        $removePost = Saved_post::findOrFail($post_id);
+        $user_id = Auth::id();
 
-        if($removePost->user_id !== Auth::id()){
-            return response()->view('error.custom', [], 500);
+        $removePost = Saved_post::where('user_id', $user_id)->where('post_id', $post_id)->first();
+
+        if(!$removePost){
+            return response()->back()->with('Failed', 'Failed to delete');
         }
         else{
             $removePost->delete();
