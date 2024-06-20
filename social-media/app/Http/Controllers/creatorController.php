@@ -20,7 +20,8 @@ class creatorController extends Controller
             'created_date' => now(),
         ]);
 
-        $post = Post::findOrFail($request->post_id);
+        $post_id = $request->post_id;
+        $post = Post::findOrFail($post_id);
         $post->creator()->attach($createCreator->id);
 
         return redirect('home');

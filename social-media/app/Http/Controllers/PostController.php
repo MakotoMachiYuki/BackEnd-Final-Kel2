@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use App\Models\Creator;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 
 class postController extends Controller
 {
@@ -17,14 +16,14 @@ class postController extends Controller
     
     public function createPost(Request $request)
     {
-        $userId = Auth::id();
+        $user_id = Auth::id();
         $user = Auth::user();
         $imagePath = $request->file('post-images')->store('post-images');
         $creator = $user->creator()->first();
         
         if (!$creator) {
             $creator = Creator::create([
-                'user_id' => $userId
+                'user_id' => $user_id
             ]);
         }
         
@@ -33,7 +32,10 @@ class postController extends Controller
             'title' => $request->title,
             'text'=> $request->text,
         ]);
+
+<<<<<<< HEAD
         $post->save();
+        $creator->post()->attach($post->id);
         return redirect('home');
       }
     public function store(Request $request)
@@ -52,5 +54,9 @@ class postController extends Controller
         }
 
         return back();
+=======
+        $creator->post()->attach($post->id);
+        return redirect('home');
+>>>>>>> dfdc7974ca406e23a337df65c9c1f0761ea77acf
     }
 }

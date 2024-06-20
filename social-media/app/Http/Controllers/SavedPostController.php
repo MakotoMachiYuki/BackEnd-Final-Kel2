@@ -19,19 +19,24 @@ class savedPostController extends Controller
             'saved_date' => now(),
         ]);
 
-        return redirect('home');   
+        return redirect()->back()->with('sucess', 'Save post');   
     }
 
-    public function removeSavedPost(Request $request, $id)
+    public function removeSavedPost(Request $request)
     {
-        $removePost = Saved_post::findOrFail($id);
+        $request->validate([
+            'post_id' => 'required|integer|exists:saved_posts,id'
+        ]);
+
+        $post_id = $request->post_id;
+        $removePost = Saved_post::findOrFail($post_id);
 
         if($removePost->user_id !== Auth::id()){
             return response()->view('error.custom', [], 500);
         }
-
-        session()->flash('success', 'Post saved successfully.');
-
-        return redirect()->back();
+        else{
+            $removePost->delete();
+            return redirect()->back()->with('success', 'Unsave post');
+        }
     }
 }
