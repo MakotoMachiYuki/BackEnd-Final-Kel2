@@ -17,14 +17,8 @@
         <nav class="navbar">
         <a href="/" target="_self">Home</a>
         <a href="/post" target="_self">Post</a>
-<<<<<<< HEAD
         <a href="/about" target="_self">Profile</a>
         <a href="/settings" target="_self">Settings</a>
-=======
-        <a href="/profile" target="_self">Profile</a>
-        <a href="/settings" target="_self">Settings</a>
-        <a href="/logout" class = "logout"> Logout</a> 
->>>>>>> 0fee5a5031fb429ef27b3b2b0310ee16e15c4b3e
         </nav>
     </header>
         </nav>
