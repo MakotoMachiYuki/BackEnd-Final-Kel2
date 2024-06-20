@@ -4,18 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>CODEGRAM | About</title>
+    <title>CODEGRAM | Profile</title>
 </head>
 <body>
     <header class="header">
         <a href="#" class="logo">CODEGRAM</a>
-
         <nav class="navbar">
         <a href="/" target="_self">Home</a>
         <a href="/post" target="_self">Post</a>
-        <a href="/about" target="_self">Profile</a>
+        <a href="/profile" target="_self">Profile</a>
         <a href="/settings" target="_self">Settings</a>
-        <a href="/login" class="login" >Login</a>
         </nav>
     </header>
 
