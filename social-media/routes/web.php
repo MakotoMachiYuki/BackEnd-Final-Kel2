@@ -54,6 +54,5 @@ Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name(
 
 
 Route::post('/post/{id}/like', [postController::class, 'likePost'])->name('likePost');
-Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->middleware('auth')->name('commentsroute');
-Route::get('/posts', [CommentController::class, 'getComment'])->name('getComment');
-
+Route::post('/posts/comments', [CommentController::class, 'store'])->middleware('auth')->name('commentsroute');
+Route::get('/posts/comments', [CommentController::class, 'getComment'])->middleware('auth')->name('getComment');

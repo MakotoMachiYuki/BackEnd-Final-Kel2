@@ -70,7 +70,22 @@
         while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
             // Convert newlines to <br> for proper display
             $text = nl2br(htmlspecialchars($row['text']));
-            $imagePath = htmlspecialchars($row['image']); // assuming 'image' is the column name\
+            $imagePath = htmlspecialchars($row['image']);// assuming 'image' is the column name\
+
+            $comments = [];
+            $tempArray = $pdo->query("SELECT content from comments where post_id =  ".$row['id'] );
+            foreach($tempArray as $tempComment)
+            {
+                $comments[] = $tempComment;
+            }
+
+            $username = [];
+            $tempArray1 = $pdo->query(" select u.username from users u join comments c on u.id = c.user_id where c.post_id =". $row['id']);
+            foreach($tempArray1 as $tempUser)
+            {
+                $username[] = $tempUser;
+            }
+
             
         echo "
             <div class='post'>
@@ -82,19 +97,21 @@
                                     <button type='submit' class='btn btn-primary likeButton'>LIKE <span class='counter'>{$row['likes_count']}</span></button><br><br>
                             </form>
 
-                            <h4>Comments</h4>
-                            <form action='" . route('getComment', ['post' => $row['id']]) . "' method = 'GET'>
-                            @foreach (post->comments as comment)
-                            <div class='mb-2'>
-                                <p>{{ comment->content }}</p>
-                                <small>By {{ comment->user->username }}</small>
-                            </div>
-                            @endforeach
-                            <form>
+                            <h4>Comments</h4> ";
+                            
+                             "<form action='" . route('getComment') . "' method='GET'>";
+                            
+                                    foreach($comments as $comment)
+                                    {
+                                        echo "<p>" .implode(',', $username) . ": " .implode(', ', $comment) . "</p>";
+                                    }   
+                            
+                                echo "</form>";
 
-                            <form action=' " . route('commentsroute', ['post' => $row['id']]) . "' method='POST'>
+                        echo"    <form action=' " . route('commentsroute') . "' method='POST'>
                                 " . csrf_field() . "
                                 <div class='form-group'>
+                                <input type='hidden' name='post_id' value='{$row['id']}'>
                                 <textarea class='form-control'name='content' rows='3' required></textarea>
                                 </div>
                                 <button type='submit' class='btn btn-primary'>Add Comment</button>
