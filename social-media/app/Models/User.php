@@ -43,6 +43,7 @@ class User extends Authenticatable
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public function followers()
     {
         return $this->belongsToMany(User::class, 'followers', 'follower_id', 'following_id');
@@ -67,12 +68,17 @@ class User extends Authenticatable
     
     }
 =======
+=======
+>>>>>>> dfdc7974ca406e23a337df65c9c1f0761ea77acf
     public function checkSaved($post_id)
     {
         return $this->savedPost()->where('post_id', $post_id)->exists();
     }
 
+<<<<<<< HEAD
 >>>>>>> 4a35139 (Button still error)
+=======
+>>>>>>> dfdc7974ca406e23a337df65c9c1f0761ea77acf
     /**
      * Get the attributes that should be cast.
      *
