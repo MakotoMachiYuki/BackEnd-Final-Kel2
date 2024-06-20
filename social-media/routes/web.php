@@ -54,5 +54,5 @@ Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name(
 
 Route::post('/post/{id}/like', [postController::class, 'likePost'])->name('likePost');
 
-Route::get('/follow/{user}', [FollowerController::class, 'follow']) -> name('follow');
-Route::delete('/unfollow/{user}', [FollowerController::class, 'unfollow']) -> name('unfollow');
+Route::post('/follow/{user}', [FollowerController::class, 'followUser'])->name('follow');
+
