@@ -29,7 +29,6 @@ class postController extends Controller
         $post = Post::create([
             'title' => $request->title,
             'text'=> $request->text,
-            'image' => $request->image
         ]);
 
         $creator->post()->attach($post->id);
