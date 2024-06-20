@@ -31,8 +31,8 @@ Route::get('/logout', [loginController::class, 'logout']) ->name('logout')->midd
 Route::get('/create_account', [registerController::class, 'register']) -> name('register');
 Route::post('/create_account', [registerController::class, 'registerAccount']) -> name('registerAccount');
 
-Route::get('/about', function () {
-    return view('about');
+Route::get('/profile', function () {
+    return view('profile');
 });
 
 Route::get('/settings', function () {
