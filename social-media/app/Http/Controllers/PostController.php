@@ -59,4 +59,10 @@ class postController extends Controller
         return redirect('home');
 >>>>>>> dfdc7974ca406e23a337df65c9c1f0761ea77acf
     }
+    public function index()
+{
+    $posts = Post::with('comments.user')->get();
+    return view('home', compact('posts'));
+}
+
 }

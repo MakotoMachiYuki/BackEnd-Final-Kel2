@@ -70,7 +70,20 @@
             // Convert newlines to <br> for proper display
                 $text = nl2br(htmlspecialchars($row['text']));
                 $imagePath = htmlspecialchars($row['image']); // assuming 'image' is the column name
-                echo "
+              $comments = [];
+              $tempArray = $pdo->query("SELECT content from comments where post_id =  ".$row['id'] );
+              foreach($tempArray as $tempComment)
+              {
+                  $comments[] = $tempComment;
+               }
+
+              $username = [];
+              $tempArray1 = $pdo->query(" select u.username from users u join comments c on u.id = c.user_id where c.post_id =". $row['id']);
+              foreach($tempArray1 as $tempUser)
+              {
+                  $username[] = $tempUser;
+              }
+           echo "
                 <div class='post'>
                     <img src='storage/$imagePath' alt='Post Image' width='500' height='300'>
                     <h2>" . htmlspecialchars($row['title']) . "</h2>
@@ -79,6 +92,23 @@
                         " . csrf_field() . " 
                         <button type='submit' class='btn btn-primary likeButton'>LIKE <span class='counter'>{$row['likes_count']}</span></button>
                     </form>";
+
+                      <h4>Comments</h4> ";      
+                             "<form action='" . route('getComment') . "' method='GET'>";
+                                    foreach($comments as $comment)
+                                    {
+                                        echo "<p>" .implode(', ', $comment) . "</p>";
+                                    }   
+                        echo "</form>";
+
+                      echo" <form action=' " . route('commentsroute') . "' method='POST'>
+                                " . csrf_field() . "
+                                <div class='form-group'>
+                                <input type='hidden' name='post_id' value='{$row['id']}'>
+                                <textarea class='form-control'name='content' rows='3' required></textarea>
+                                </div>
+                                <button type='submit' class='btn btn-primary'>Add Comment</button>
+                            </form>
                     
                 if (Auth::check()) {
                     if (Auth::user()->checkSaved($row['id'])) {
@@ -104,9 +134,6 @@
             echo "An error occurred while connecting to the database: " . $e->getMessage();
         }
    
-                
-
-                    
                     // Pagination controls
                     echo '<div class="pagination">';
                     if ($page > 1) {
