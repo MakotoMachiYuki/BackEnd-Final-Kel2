@@ -16,7 +16,6 @@
         <a href="/about" target="_self">Profile</a>
         <a href="/settings" target="_self">Settings</a>
         </nav>
-    
     </header>
 
        <h1 class="judul">Create Post</h1>

@@ -1,7 +1,4 @@
 <?php
-
-
-
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\savedPostController;
@@ -12,9 +9,9 @@ use App\Http\Controllers\registerController;
 use App\Http\Controllers\creatorController;
 use App\Http\Controllers\forgotPasswordController;
 use App\Http\Controllers\resetPasswordController;
-
 use App\Http\Controllers\Settings\verifyAccountController;
 use App\Http\Controllers\Settings\ChangeAccountInformationController;
+use App\Http\Controllers\FollowerController;
 
 
 Route::group(['middleware' => 'auth'], function()
@@ -32,12 +29,7 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('/about', function () {
         return view('about');
     });
-    
-    Route::get('/settings', function () {
-        return view('settings');
-    });
 
-    
     Route::post('/save-post', [savedPostController::class, 'addSavedPost'])->name('addSavedPost');
     
     Route::post('/create_creator', [CreatorController::class, 'createCreator'])->name('createCreator');
@@ -47,6 +39,9 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('/dashboard', function () {
         return view('dasboard.index');
     });
+
+    Route::post('/save-post', [savedPostController::class, 'addSavedPost'])->name('addSavedPost');
+    Route::post('/create_creator', [CreatorController::class, 'createCreator'])->name('createCreator');
 
     Route::prefix('settings')->group(function ()
     {
@@ -64,10 +59,19 @@ Route::group(['middleware' => 'auth'], function()
 
             Route::get('/changePassword', [ChangeAccountInformationController::class, 'changePasswordIndex'])->name('changePasswordIndex');
             Route::post('/changePassword', [ChangeAccountInformationController::class, 'changePassword'])->name('changePassword');
+    
+            Route::get('/profile', function () {
+                return view('profile');
+            });
+                    
+            Route::get('/dashboard', function () {
+                return view('dasboard.index');
+            });
 
         });
     });
 });
+
 
 Route::get('/logout', [loginController::class, 'logout']) ->name('logout');
 
@@ -77,10 +81,9 @@ Route::post('/login', [loginController::class, 'loginAccount']) -> name('loginAc
 Route::get('/create_account', [registerController::class, 'register']) -> name('register');
 Route::post('/create_account', [registerController::class, 'registerAccount']) -> name('registerAccount');
 
-
 Route::get('/forgot-password', [forgotPasswordController::class,'showForgotPasswordForm'])->name('password.request');
 Route::post('/forgot-password', [forgotPasswordController::class, 'verifyUsername'])->name('verifyUsername');
 Route::post('/reset-password', [resetPasswordController::class, 'reset'])->name('reset');
 
-
+Route::post('/follow/{user}', [FollowerController::class, 'followUser'])->name('follow');
 
