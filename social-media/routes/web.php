@@ -26,8 +26,8 @@ Route::group(['middleware' => 'auth'], function()
         return view('post');
     });
 
-    Route::get('/about', function () {
-        return view('about');
+    Route::get('/profile', function () {
+        return view('profile');
     });
 
     Route::post('/save-post', [savedPostController::class, 'addSavedPost'])->name('addSavedPost');
