@@ -12,6 +12,7 @@ use App\Http\Controllers\registerController;
 use App\Http\Controllers\creatorController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\ProfileController;
 
 
 Route::get('/',[homeController::class, 'index'])->name('home')->middleware('auth');

@@ -42,6 +42,10 @@ class User extends Authenticatable
         return $this->hasMany(Saved_post::class, 'user_id', 'id');
     }
 
+    public function posts(){
+        return $this->hasMany(Post::class);
+    }
+    
     /**
      * Get the attributes that should be cast.
      *
