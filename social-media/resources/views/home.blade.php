@@ -59,47 +59,48 @@
                         $totalPages = ceil($totalPosts / $postsPerPage);
 
                         // Perform query with limit and offset
-                        $statement = $pdo->prepare("SELECT * FROM posts ORDER BY id DESC LIMIT :limit OFFSET :offset");
+                        $stgiatement = $pdo->prepare("SELECT * FROM posts ORDER BY id DESC LIMIT :limit OFFSET :offset");
                         $statement->bindParam(':limit', $postsPerPage, PDO::PARAM_INT);
                         $statement->bindParam(':offset', $offset, PDO::PARAM_INT);
-                        $statement->execute();
-                    
-
-                     // Fetch data
+                        
+                        // Fetch data
                         while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
                         // Convert newlines to <br> for proper display
                             $text = nl2br(htmlspecialchars($row['text']));
-                            $imagePath = htmlspecialchars($row['image']); // assuming 'image' is the column name
-                            echo "
-                            <div class='post'>
-                                <img src='storage/$imagePath' alt='Post Image' width='500' height='300'>
-                                <h2>" . htmlspecialchars($row['title']) . "</h2>
-                                <p>" . nl2br(htmlspecialchars($row['text'])) . "</p>
-                                <form action='" . route('likePost', ['id' => $row['id']]) . "' method='POST'> 
-                                    " . csrf_field() . " 
-                                    <button type='submit' class='btn btn-primary likeButton'>LIKE <span class='counter'>{$row['likes_count']}</span></button>
-                                </form>";
+                            $imagePath = htmlspecialchars($row['image']);
+
+                            echo '
+                                <div class = "post">
+                                    <img src="storage/$imagePath" alt="Post Image" width="500" height="300">
+                                    <h2>'.$row['title'].'</h2>
+                                    <p>'.$row['text'].'</p>';
                                 
-                            if (Auth::check()) {
-                                if (Auth::user()->checkSaved($row['id'])) {
-                                    echo "
-                                    <form action='" . route('removeSavedPost') . "' method='POST'>
-                                        " . csrf_field() . "
-                                        <input type='hidden' name='post_id' value='" . $row['id'] . "'>
-                                        <button type='submit'>Unsave</button>
-                                    </form>";
-                                } else {
-                                    echo "
-                                    <form action='" . route('addSavedPost') . "' method='POST'>
-                                        " . csrf_field() . "
-                                        <input type='hidden' name='post_id' value='" . $row['id'] . "'>
-                                        <button type='submit'>Save</button>
-                                    </form>";
+                                    if(Auth::check()){
+                                        echo'
+                                        <form action='. route('likePost', ['id' => $row['id']]).' method="POST"> 
+                                                '. csrf_field().' 
+                                                <button type = "submit" class = "btn btn-primary likeButton">LIKE <span class="counter">{$row["likes_count"]}</span></button><br><br>
+                                        </form>';   
+                                        
+                                        if (Auth::user()->checkSaved($row['id'])) {
+                                            echo '
+                                            <form action='.route('removeSavedPost').' method="POST">
+                                                '.csrf_field().'
+                                                <input type = "hidden" name = "post_id" value='.$row['id'].'>
+                                                <button type = "submit">Unsave</button>
+                                            </form>';
+                                        } else {
+                                            echo '
+                                            <form action='. route('addSavedPost').' method="POST">
+                                                '.csrf_field().'
+                                                <input type = "hidden" name = "post_id" value='.$row['id'].'>
+                                                <button type = "submit">Save</button>
+                                            </form>';
+                                        }
+                                        echo '
+                                        </div>';    
+                                    }
                                 }
-                            }
-                            
-                            echo "</div>";
-                        }
                     } catch (PDOException $e) {
                         echo "An error occurred while connecting to the database: " . $e->getMessage();
                     }
