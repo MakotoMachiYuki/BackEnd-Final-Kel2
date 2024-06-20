@@ -14,6 +14,12 @@
 
     <h1 class="judul">Login</h1>
     
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status')}}
+        </div>
+    @endif
+
     <form class = "loginPage" action = "{{route('loginAccount')}}" method = "post">
         <label>Input your : </label>
         <input type="text" placeholder="Username" name = "username" required value = "{{old('username')}}">

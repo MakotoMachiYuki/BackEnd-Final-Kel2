@@ -10,8 +10,8 @@ use App\Http\Controllers\homeController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\registerController;
 use App\Http\Controllers\creatorController;
-use App\Http\Controllers\ForgotPasswordController;
-use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\forgotPasswordController;
+use App\Http\Controllers\resetPasswordController;
 use App\Http\Controllers\FollowerController;
 
 Route::get('/',[homeController::class, 'index'])->name('home')->middleware('auth');
@@ -47,9 +47,9 @@ Route::post('/save-post', [savedPostController::class, 'addSavedPost'])->name('a
 
 Route::post('/create_creator', [CreatorController::class, 'createCreator'])->name('createCreator')->middleware('auth');
 
-Route::get('/forgot-password', [ForgotPasswordController::class,'showForgotPasswordForm'])->name('password.request');
-Route::post('/forgot-password', [ForgotPasswordController::class, 'verifyUsername'])->name('verifyUsername');
-Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('reset');
+Route::get('/forgot-password', [forgotPasswordController::class,'showForgotPasswordForm'])->name('password.request');
+Route::post('/forgot-password', [forgotPasswordController::class, 'verifyUsername'])->name('verifyUsername');
+Route::post('/reset-password', [resetPasswordController::class, 'reset'])->name('reset');
 
 
 Route::post('/post/{id}/like', [postController::class, 'likePost'])->name('likePost');
