@@ -16,7 +16,7 @@
     @csrf
     <input type = "hidden" name="username" value="{{$username}}">
     <label for = "password">New Password:</label>
-    <input type = "password" placeholder =  "New password" id="password" required>
+    <input type = "password" placeholder =  "New password" id="password" name="password" required>
     <label for = "password_confirmation">Confirm Your New Password:</label>
     <input type = "password" placeholder="Confirm New Password" name="password_confirmation" required>
     <button type="submit">Reset Password</button>
