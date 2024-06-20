@@ -10,8 +10,8 @@ use App\Http\Controllers\homeController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\registerController;
 use App\Http\Controllers\creatorController;
-use App\Http\Controllers\ForgotPasswordController;
-use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\forgotPasswordController;
+use App\Http\Controllers\resetPasswordController;
 
 use App\Http\Controllers\Settings\verifyAccountController;
 use App\Http\Controllers\Settings\ChangeAccountInformationController;
@@ -78,9 +78,9 @@ Route::get('/create_account', [registerController::class, 'register']) -> name('
 Route::post('/create_account', [registerController::class, 'registerAccount']) -> name('registerAccount');
 
 
-Route::get('/forgot-password', [ForgotPasswordController::class,'showForgotPasswordForm'])->name('password.request');
-Route::post('/forgot-password', [ForgotPasswordController::class, 'verifyUsername'])->name('verifyUsername');
-Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('reset');
+Route::get('/forgot-password', [forgotPasswordController::class,'showForgotPasswordForm'])->name('password.request');
+Route::post('/forgot-password', [forgotPasswordController::class, 'verifyUsername'])->name('verifyUsername');
+Route::post('/reset-password', [resetPasswordController::class, 'reset'])->name('reset');
 
 
 
