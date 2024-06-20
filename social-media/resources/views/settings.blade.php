@@ -19,5 +19,6 @@
         </nav>
     </header>
     <h1>Halaman Settings</h1>
+    <button onclick="window.location.href = '/delete-account' ">Delete Account</button>
 </body>
 </html>
