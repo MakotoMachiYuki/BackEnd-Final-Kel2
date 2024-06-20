@@ -42,11 +42,14 @@ Route::group(['middleware' => 'auth'], function()
     });
 
     Route::post('/save-post', [savedPostController::class, 'addSavedPost'])->name('addSavedPost');
-    Route::post('/create_creator', [CreatorController::class, 'createCreator'])->name('createCreator')
+    Route::post('/create_creator', [CreatorController::class, 'createCreator'])->name('createCreator');
+
+    Route::post('/save_post', [savedPostController::class, 'addSavedPost'])->name('addSavedPost');
+    Route::post('/remove_post', [savedPostController::class, 'removeSavedPost'])->name('removeSavedPost');
     
     Route::post('/post/{id}/like', [postController::class, 'likePost'])->name('likePost');
-    Route::post('/posts/comments', [CommentController::class, 'store'])]->name('commentsroute');
-    Route::get('/posts/comments', [CommentController::class, 'getComment'])]->name('getComment');
+    Route::post('/posts/comments', [CommentController::class, 'store'])->name('commentsroute');
+    Route::get('/posts/comments', [CommentController::class, 'getComment'])->name('getComment');
     
     Route::post('/follow/{user}', [FollowerController::class, 'followUser'])->name('follow');
 

@@ -59,7 +59,7 @@
                         $totalPages = ceil($totalPosts / $postsPerPage);
 
                         // Perform query with limit and offset
-                        $stgiatement = $pdo->prepare("SELECT * FROM posts ORDER BY id DESC LIMIT :limit OFFSET :offset");
+                        $statement = $pdo->prepare("SELECT * FROM posts ORDER BY id DESC LIMIT :limit OFFSET :offset");
                         $statement->bindParam(':limit', $postsPerPage, PDO::PARAM_INT);
                         $statement->bindParam(':offset', $offset, PDO::PARAM_INT);
                         $statement->execute();
@@ -93,22 +93,22 @@
                         <button type='submit' class='btn btn-primary likeButton'>LIKE <span class='counter'>{$row['likes_count']}</span></button>
                     </form>";
 
-                      <h4>Comments</h4> ";      
+                        echo "<h4>Comments</h4>";      
                              "<form action='" . route('getComment') . "' method='GET'>";
                                     foreach($comments as $comment)
                                     {
-                                        echo "<p>" .implode(', ', $comment) . "</p>";
+                                        echo "<p>" .implode(',', array_slice($comment, 1)) . "</p>";
                                     }   
                         echo "</form>";
 
-                      echo" <form action=' " . route('commentsroute') . "' method='POST'>
+                        echo "<form action=' " . route('commentsroute') . "' method='POST'>
                                 " . csrf_field() . "
                                 <div class='form-group'>
-                                <input type='hidden' name='post_id' value='{$row['id']}'>
-                                <textarea class='form-control'name='content' rows='3' required></textarea>
+                                    <input type='hidden' name='post_id' value='{$row['id']}'>
+                                    <textarea class='form-control'name='content' rows='3' required></textarea>
                                 </div>
                                 <button type='submit' class='btn btn-primary'>Add Comment</button>
-                            </form>
+                            </form>";
                     
                 if (Auth::check()) {
                     if (Auth::user()->checkSaved($row['id'])) {
@@ -147,7 +147,7 @@
                     }
                     echo '</div>';
                     ?>
-     </div>
+        </div>
                 <!-- Side widgets-->
                 <div class="col-lg-4">
                     <!-- Search widget-->

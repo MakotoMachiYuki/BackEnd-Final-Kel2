@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use App\Models\Creator;
 use Illuminate\Http\Request;
+use Session;
 
 class postController extends Controller
 {
@@ -33,7 +34,6 @@ class postController extends Controller
             'text'=> $request->text,
         ]);
 
-<<<<<<< HEAD
         $post->save();
         $creator->post()->attach($post->id);
         return redirect('home');
@@ -54,10 +54,6 @@ class postController extends Controller
         }
 
         return back();
-=======
-        $creator->post()->attach($post->id);
-        return redirect('home');
->>>>>>> dfdc7974ca406e23a337df65c9c1f0761ea77acf
     }
     public function index()
 {
