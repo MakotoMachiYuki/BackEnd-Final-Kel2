@@ -9,6 +9,7 @@ use App\Http\Controllers\registerController;
 use App\Http\Controllers\creatorController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\forgotPasswordController;
+use  App\Http\Controllers\resetPasswordController;
 use App\Http\Controllers\deleteAccountController;
 use App\Http\Controllers\Settings\verifyAccountController;
 use App\Http\Controllers\Settings\ChangeAccountInformationController;
