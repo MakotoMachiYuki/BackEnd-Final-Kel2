@@ -33,7 +33,7 @@
             </div>
         @endif
         <br>
-        <input class = "submit" type = "submit" name = "signin" value = "Sign Update">
+        <input class = "submit" type = "submit" name = "signin" value = "Update">
         <br>
 
     </form>

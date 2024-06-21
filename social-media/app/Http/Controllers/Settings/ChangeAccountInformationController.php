@@ -26,8 +26,7 @@ class ChangeAccountInformationController extends Controller
 
     //still figuring out how to make session as authentication
     public function changeEmailIndex()
-    {
-        
+    {  
         return view('changeEmail');  
     }
 
