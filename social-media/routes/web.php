@@ -13,6 +13,8 @@ use App\Http\Controllers\deleteAccountController;
 use App\Http\Controllers\Settings\verifyAccountController;
 use App\Http\Controllers\Settings\ChangeAccountInformationController;
 use App\Http\Controllers\FollowerController;
+use App\Http\Controllers\ProfileController;
+
 
 
 Route::group(['middleware' => 'auth'], function()
