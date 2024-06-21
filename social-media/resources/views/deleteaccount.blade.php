@@ -16,7 +16,6 @@
             <a href="/post" target="_self">Post</a>
             <a href="/about" target="_self">Profile</a>
             <a href="/settings" target="_self">Settings</a>
-            <a href="/logout" target="_self">Logout</a>
         </nav>
     </header>
     <h1> Confirm Delete Account</h1>
