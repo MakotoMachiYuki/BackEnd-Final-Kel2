@@ -55,5 +55,5 @@ Route::post('/reset-password', [resetPasswordController::class, 'reset'])->name(
 
 Route::post('/post/{id}/like', [postController::class, 'likePost'])->name('likePost');
 
-Route::get('/delete-account', function(){ return view('deleteAccount');})->middleware('auth');
-Route::post('/delete-account', [deleteAccountController::class, 'deleteAccount'])->middleware('auth');
+Route::get('/settings/delete-account', function(){ return view('deleteAccount');})->middleware('auth');
+Route::post('/settings/delete-account', [deleteAccountController::class, 'deleteAccount'])->middleware('auth');

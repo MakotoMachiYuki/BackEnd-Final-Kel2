@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\saved_post;
+use App\Models\Creator;
 
 class deleteAccountController extends Controller
 {
@@ -18,6 +19,8 @@ class deleteAccountController extends Controller
     public function deleteAccount(Request $request)
     {
         $user = Auth::user();
+
+        Creator::where('user_id', $user->id)->delete();
         saved_post::where('user_id', $user->id)->delete();
         Auth::logout();
         $user->delete();
