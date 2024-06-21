@@ -19,17 +19,10 @@
     </header>
     <h1>Halaman Settings</h1>
 
-
-
-    <a href="/settings/change_account_information" target = "_self"> Change Account Information</a>
-    
-    <br> 
-    
-    <button onclick="window.location.href = '/settings/delete-account' ">Delete Account</button>
-   
+        <button onclick="window.location.href= '/settings/change_account_information' "> Change Account Information</button>
     <br>
-    
-    <a href="/logout" target="_self">Logout</a>
-
+        <button onclick="window.location.href = '/settings/delete-account' ">Delete Account</button>
+    <br>
+        <button onclick="window.location.href = '/logout' "> Logout </button>
 </body>
 </html>
