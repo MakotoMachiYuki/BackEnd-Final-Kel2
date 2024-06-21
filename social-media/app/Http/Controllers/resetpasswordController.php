@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
-class ResetPasswordController extends Controller
+class resetPasswordController extends Controller
 {
 
     public function reset(Request $request)
@@ -32,6 +32,5 @@ class ResetPasswordController extends Controller
        $user->save();
 
         return redirect('/login')->with('status', 'Password has been reset!');
+    }
 }
-}
-?>

@@ -17,9 +17,8 @@
         <nav class="navbar">
         <a href="/" target="_self">Home</a>
         <a href="/post" target="_self">Post</a>
-        <a href="/about" target="_self">Profile</a>
+        <a href="/profile" target="_self">Profile</a>
         <a href="/settings" target="_self">Settings</a>
-        <a href="/logout" class = "logout"> Logout</a> 
         </nav>
     </header>
         </nav>
@@ -66,35 +65,75 @@
                         $statement->execute();
                     
 
-                     // Fetch data
+        // Fetch data
         while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
             // Convert newlines to <br> for proper display
-            $text = nl2br(htmlspecialchars($row['text']));
-            $imagePath = htmlspecialchars($row['image']); // assuming 'image' is the column name
-        echo "
-            <div class='post'>
-                <img src='storage/$imagePath' alt='Post Image' width='500' height='300'>
+                $text = nl2br(htmlspecialchars($row['text']));
+                $imagePath = htmlspecialchars($row['image']); // assuming 'image' is the column name
+              $comments = [];
+              $tempArray = $pdo->query("SELECT content from comments where post_id =  ".$row['id'] );
+              foreach($tempArray as $tempComment)
+              {
+                  $comments[] = $tempComment;
+               }
+
+              $username = [];
+              $tempArray1 = $pdo->query(" select u.username from users u join comments c on u.id = c.user_id where c.post_id =". $row['id']);
+              foreach($tempArray1 as $tempUser)
+              {
+                  $username[] = $tempUser;
+              }
+           echo "
+                <div class='post'>
+                    <img src='storage/$imagePath' alt='Post Image' width='500' height='300'>
                     <h2>" . htmlspecialchars($row['title']) . "</h2>
-                        <p>" . nl2br(htmlspecialchars($row['text'])) . "</p>
-                            <form action='" . route('likePost', ['id' => $row['id']]) . "' method='POST'> 
-                                " . csrf_field() . " 
-                                    <button type='submit' class='btn btn-primary likeButton'>LIKE <span class='counter'>{$row['likes_count']}</span></button><br><br>
-                            </form>
+                    <p>" . nl2br(htmlspecialchars($row['text'])) . "</p>
+                    <form action='" . route('likePost', ['id' => $row['id']]) . "' method='POST'> 
+                        " . csrf_field() . " 
+                        <button type='submit' class='btn btn-primary likeButton'>LIKE <span class='counter'>{$row['likes_count']}</span></button>
+                    </form>";
 
-                            <form action='" . route('addSavedPost')."'method='POST'>
+                        echo "<h4>Comments</h4>";      
+                             "<form action='" . route('getComment') . "' method='GET'>";
+                                    foreach($comments as $comment)
+                                    {
+                                        echo "<p>" .implode(',', array_slice($comment, 1)) . "</p>";
+                                    }   
+                        echo "</form>";
+
+                        echo "<form action=' " . route('commentsroute') . "' method='POST'>
                                 " . csrf_field() . "
+                                <div class='form-group'>
                                     <input type='hidden' name='post_id' value='{$row['id']}'>
-                                    <button type='submit'> save </button>
-                            </form>
-            </div>
-            ";
-        }
-                    } catch (PDOException $e) {
-                        echo "An error occurred while connecting to the database: " . $e->getMessage();
-                    }
-                
-
+                                    <textarea class='form-control'name='content' rows='3' required></textarea>
+                                </div>
+                                <button type='submit' class='btn btn-primary'>Add Comment</button>
+                            </form>";
                     
+                if (Auth::check()) {
+                    if (Auth::user()->checkSaved($row['id'])) {
+                        echo "
+                        <form action='" . route('removeSavedPost') . "' method='POST'>
+                            " . csrf_field() . "
+                            <input type='hidden' name='post_id' value='" . $row['id'] . "'>
+                            <button type='submit'>Unsave</button>
+                        </form>";
+                    } else {
+                        echo "
+                        <form action='" . route('addSavedPost') . "' method='POST'>
+                            " . csrf_field() . "
+                            <input type='hidden' name='post_id' value='" . $row['id'] . "'>
+                            <button type='submit'>Save</button>
+                        </form>";
+                    }
+                }
+                
+                echo "</div>";
+            }
+        } catch (PDOException $e) {
+            echo "An error occurred while connecting to the database: " . $e->getMessage();
+        }
+   
                     // Pagination controls
                     echo '<div class="pagination">';
                     if ($page > 1) {
@@ -108,7 +147,7 @@
                     }
                     echo '</div>';
                     ?>
-     </div>
+        </div>
                 <!-- Side widgets-->
                 <div class="col-lg-4">
                     <!-- Search widget-->
