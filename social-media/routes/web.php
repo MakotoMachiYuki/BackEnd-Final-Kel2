@@ -9,7 +9,7 @@ use App\Http\Controllers\registerController;
 use App\Http\Controllers\creatorController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\forgotPasswordController;
-use App\Http\Controllers\resetPasswordController;
+use App\Http\Controllers\deleteAccountController;
 use App\Http\Controllers\Settings\verifyAccountController;
 use App\Http\Controllers\Settings\ChangeAccountInformationController;
 use App\Http\Controllers\FollowerController;
@@ -60,7 +60,9 @@ Route::group(['middleware' => 'auth'], function()
     });
   
     Route::prefix('settings')->group(function ()
-    {
+    {   
+        Route::get('/delete-account', function(){ return view('deleteAccount')});
+        Route::post('/delete-account', [deleteAccountController::class, 'deleteAccount']);
         Route::post('/verifyAccount', [verifyAccountController::class, 'verifyAccount']) -> name('verifyAccount');
         Route::get('/verifyAccount', [verifyAccountController::class, 'verifyAccountIndex']) -> name('verifyAccountIndex');
         Route::get('/change_account_information',[ChangeAccountInformationController::class, 'ChangeAccountInformationIndex'])-> name('ChangeAccountInformationIndex');
@@ -78,6 +80,7 @@ Route::group(['middleware' => 'auth'], function()
         });
     });
   
+
 });
 
 Route::get('/logout', [loginController::class, 'logout']) ->name('logout');
@@ -91,4 +94,3 @@ Route::post('/create_account', [registerController::class, 'registerAccount']) -
 Route::get('/forgot-password', [forgotPasswordController::class,'showForgotPasswordForm'])->name('password.request');
 Route::post('/forgot-password', [forgotPasswordController::class, 'verifyUsername'])->name('verifyUsername');
 Route::post('/forgot-password/reset-password', [resetPasswordController::class, 'reset'])->name('reset');
-
