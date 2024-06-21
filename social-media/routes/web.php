@@ -1,7 +1,4 @@
 <?php
-
-
-
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\savedPostController;
@@ -10,50 +7,90 @@ use App\Http\Controllers\homeController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\registerController;
 use App\Http\Controllers\creatorController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\forgotPasswordController;
-use App\Http\Controllers\resetPasswordController;
 use App\Http\Controllers\deleteAccountController;
+use App\Http\Controllers\Settings\verifyAccountController;
+use App\Http\Controllers\Settings\ChangeAccountInformationController;
+use App\Http\Controllers\FollowerController;
 
 
-Route::get('/',[homeController::class, 'index'])->name('home')->middleware('auth');
-Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
+Route::group(['middleware' => 'auth'], function()
+{
+    Route::get('/',[homeController::class, 'index'])->name('home');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    
+    Route::get('/post', [postController::class, 'create']) -> name('create');
+    Route::post('/post', [postController::class, 'createPost']) -> name('createPost');
+    
+    Route::get('/post', function() {
+        return view('post');
+    });
 
-Route::get('/post', function() {
-    return view('post');
+    Route::get('/profile', function () {
+        return view('profile');
+    });
+
+    Route::post('/save-post', [savedPostController::class, 'addSavedPost'])->name('addSavedPost');
+    
+    Route::post('/create_creator', [CreatorController::class, 'createCreator'])->name('createCreator');
+    
+    Route::post('/post/{id}/like', [postController::class, 'likePost'])->name('likePost');
+    
+    Route::get('/dashboard', function () {
+        return view('dasboard.index');
+    });
+
+    Route::post('/save-post', [savedPostController::class, 'addSavedPost'])->name('addSavedPost');
+    Route::post('/create_creator', [CreatorController::class, 'createCreator'])->name('createCreator');
+
+    Route::post('/save_post', [savedPostController::class, 'addSavedPost'])->name('addSavedPost');
+    Route::post('/remove_post', [savedPostController::class, 'removeSavedPost'])->name('removeSavedPost');
+    
+    Route::post('/post/{id}/like', [postController::class, 'likePost'])->name('likePost');
+    Route::post('/posts/comments', [CommentController::class, 'store'])->name('commentsroute');
+    Route::get('/posts/comments', [CommentController::class, 'getComment'])->name('getComment');
+    
+    Route::post('/follow/{user}', [FollowerController::class, 'followUser'])->name('follow');
+
+  
+    Route::get('/settings', function ()
+    {
+        return view('settings');
+    });
+  
+    Route::prefix('settings')->group(function ()
+    {   
+        Route::get('/delete-account', function(){ return view('deleteAccount')});
+        Route::post('/delete-account', [deleteAccountController::class, 'deleteAccount']);
+        Route::post('/verifyAccount', [verifyAccountController::class, 'verifyAccount']) -> name('verifyAccount');
+        Route::get('/verifyAccount', [verifyAccountController::class, 'verifyAccountIndex']) -> name('verifyAccountIndex');
+        Route::get('/change_account_information',[ChangeAccountInformationController::class, 'ChangeAccountInformationIndex'])-> name('ChangeAccountInformationIndex');
+
+        Route::prefix('change_account_information')->group(function()
+        {
+            Route::get('/changeEmail', [ChangeAccountInformationController::class, 'changeEmailIndex'])->name('changeEmailIndex');
+            Route::post('/changeEmail', [ChangeAccountInformationController::class, 'changeEmail'])->name('changeEmail');
+
+            Route::get('/changeUsername', [ChangeAccountInformationController::class, 'changeUsernameIndex'])->name('changeUsernameIndex');
+            Route::post('/changeUsername', [ChangeAccountInformationController::class, 'changeUsername'])->name('changeUsername');
+
+            Route::get('/changePassword', [ChangeAccountInformationController::class, 'changePasswordIndex'])->name('changePasswordIndex');
+            Route::post('/changePassword', [ChangeAccountInformationController::class, 'changePassword'])->name('changePassword');
+        });
+    });
+  
+
 });
 
-Route::get('/post', [postController::class, 'create']) -> name('create');
-Route::post('/post', [postController::class, 'createPost']) -> name('createPost');
+Route::get('/logout', [loginController::class, 'logout']) ->name('logout');
 
 Route::get('/login', [loginController::class, 'login']) -> name('login');
 Route::post('/login', [loginController::class, 'loginAccount']) -> name('loginAccount');
-Route::get('/logout', [loginController::class, 'logout']) ->name('logout')->middleware('auth');
 
 Route::get('/create_account', [registerController::class, 'register']) -> name('register');
 Route::post('/create_account', [registerController::class, 'registerAccount']) -> name('registerAccount');
 
-Route::get('/about', function () {
-    return view('about');
-});
-
-Route::get('/settings', function () {
-    return view('settings');
-});
-
-Route::get('/dashboard', function () {
-    return view('dasboard.index');
-})->middleware('auth');
-
-Route::post('/save-post', [savedPostController::class, 'addSavedPost'])->name('addSavedPost')->middleware('auth');
-
-Route::post('/create_creator', [CreatorController::class, 'createCreator'])->name('createCreator')->middleware('auth');
-
 Route::get('/forgot-password', [forgotPasswordController::class,'showForgotPasswordForm'])->name('password.request');
 Route::post('/forgot-password', [forgotPasswordController::class, 'verifyUsername'])->name('verifyUsername');
-Route::post('/reset-password', [resetPasswordController::class, 'reset'])->name('reset');
-
-
-Route::post('/post/{id}/like', [postController::class, 'likePost'])->name('likePost');
-
-Route::get('/settings/delete-account', function(){ return view('deleteAccount');})->middleware('auth');
-Route::post('/settings/delete-account', [deleteAccountController::class, 'deleteAccount'])->middleware('auth');
+Route::post('/forgot-password/reset-password', [resetPasswordController::class, 'reset'])->name('reset');

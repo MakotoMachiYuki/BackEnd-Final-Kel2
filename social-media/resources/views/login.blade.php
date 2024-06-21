@@ -21,15 +21,15 @@
     @endif
 
     <form class = "loginPage" action = "{{route('loginAccount')}}" method = "post">
-        <label>Input your : </label>
+    @csrf
+        <label>Input your Username: </label>
         <input type="text" placeholder="Username" name = "username" required value = "{{old('username')}}">
         <br>
 
-        <label>Input your :</label>
+        <label>Pasword:</label>
         <input type="password" placeholder="Input Password" name = "password" required>
         <br>
 
-        @csrf
         @if ($errors->any())
             <div class ="wrongLogin">
                     @foreach($errors->all() as $error)
@@ -43,10 +43,6 @@
         <br>
         <p> Didn't have an account? <a href = "/create_account" > Register Now!</a></p>
         <p> Forgot your password? <a href="/forgot-password">Reset Here!</a></p> 
-
-
-   
-
- 
+      </form>  
 </body>
 </html>

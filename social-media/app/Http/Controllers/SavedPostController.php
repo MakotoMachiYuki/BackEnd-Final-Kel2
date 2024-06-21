@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Saved_post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class savedPostController extends Controller
 {
@@ -19,19 +20,26 @@ class savedPostController extends Controller
             'saved_date' => now(),
         ]);
 
-        return redirect('home');   
+        return redirect()->back()->with('sucess', 'Save post');   
     }
 
-    public function removeSavedPost(Request $request, $id)
+    public function removeSavedPost(Request $request)
     {
-        $removePost = Saved_post::findOrFail($id);
+        $request->validate([
+            'post_id' => 'required|integer|exists:posts,id'
+        ]);
 
-        if($removePost->user_id !== Auth::id()){
-            return response()->view('error.custom', [], 500);
+        $post_id = $request->post_id;
+        $user_id = Auth::id();
+
+        $removePost = Saved_post::where('user_id', $user_id)->where('post_id', $post_id)->first();
+
+        if(!$removePost){
+            return response()->back()->with('Failed', 'Failed to delete');
         }
-
-        session()->flash('success', 'Post saved successfully.');
-
-        return redirect()->back();
+        else{
+            $removePost->delete();
+            return redirect()->back()->with('success', 'Unsave post');
+        }
     }
 }
