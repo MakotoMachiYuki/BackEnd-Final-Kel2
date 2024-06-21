@@ -44,7 +44,7 @@ class User extends Authenticatable
 
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comments::class);
     }
 
     public function followers()
@@ -64,7 +64,6 @@ class User extends Authenticatable
     
     }
 
-    
     public function checkfollowing($userId)
     {
         return $this->following()->where('following_id', $userId)->exist();
