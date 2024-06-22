@@ -25,4 +25,3 @@ class forgotPasswordController extends Controller
     return view('reset-password', ['username' => $user->username]);
     }
 }
-?>
