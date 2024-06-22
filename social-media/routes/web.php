@@ -55,6 +55,7 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('/posts/comments', [CommentController::class, 'getComment'])->name('getComment');
     
     Route::post('/follow/{user}', [FollowerController::class, 'followUser'])->name('follow');
+    Route::post('/search', [RegisterController::class, 'searchUser'])->name('searchUser');
 
   
     Route::get('/settings', function ()
@@ -96,4 +97,5 @@ Route::post('/create_account', [registerController::class, 'registerAccount']) -
 
 Route::get('/forgot-password', [forgotPasswordController::class,'showForgotPasswordForm'])->name('password.request');
 Route::post('/forgot-password', [forgotPasswordController::class, 'verifyUsername'])->name('verifyUsername');
+
 Route::post('/forgot-password/reset-password', [resetPasswordController::class, 'reset'])->name('reset');

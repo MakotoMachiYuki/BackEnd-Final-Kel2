@@ -21,7 +21,6 @@
         <a href="/settings" target="_self">Settings</a>
         </nav>
     </header>
-        </nav>
         <!-- Page header with logo and tagline-->
         <header class="py-5 bg-light border-bottom mb-4">
             <div class="container">
@@ -64,6 +63,7 @@
                         $statement->bindParam(':offset', $offset, PDO::PARAM_INT);
                         $statement->execute();
                     
+
 
         // Fetch data
         while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
@@ -154,10 +154,13 @@
                     <div class="card mb-4">
                         <div class="card-header">Search</div>
                         <div class="card-body">
-                            <div class="input-group">
-                                <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                                <button class="btn btn-primary" id="button-search" type="button">Go!</button>
-                            </div>
+                            <form action="{{route('searchUser')}}" method="POST">
+                                @csrf
+                                <div class="input-group">
+                                    <input class="form-control" type="text" name="search" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                                    <button class="btn btn-primary" id="button-search" type="submit">search</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <!-- Categories widget-->
