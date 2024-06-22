@@ -21,7 +21,6 @@
         <a href="/settings" target="_self">Settings</a>
         </nav>
     </header>
-        </nav>
         <!-- Page header with logo and tagline-->
         <header class="py-5 bg-light border-bottom mb-4">
             <div class="container">
@@ -65,29 +64,29 @@
                         $statement->execute();
                     
 
-                     // Fetch data
-        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
-            // Convert newlines to <br> for proper display
-            $text = nl2br(htmlspecialchars($row['text']));
-            $imagePath = htmlspecialchars($row['image']); // assuming 'image' is the column name
-        echo "
-            <div class='post'>
-                <img src='storage/$imagePath' alt='Post Image' width='500' height='300'>
-                    <h2>" . htmlspecialchars($row['title']) . "</h2>
-                        <p>" . nl2br(htmlspecialchars($row['text'])) . "</p>
-                            <form action='" . route('likePost', ['id' => $row['id']]) . "' method='POST'> 
-                                " . csrf_field() . " 
-                                    <button type='submit' class='btn btn-primary likeButton'>LIKE <span class='counter'>{$row['likes_count']}</span></button><br><br>
-                            </form>
+                        // Fetch data
+                        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+                            // Convert newlines to <br> for proper display
+                            $text = nl2br(htmlspecialchars($row['text']));
+                            $imagePath = htmlspecialchars($row['image']); // assuming 'image' is the column name
+                        echo "
+                            <div class='post'>
+                                <img src='storage/$imagePath' alt='Post Image' width='500' height='300'>
+                                    <h2>" . htmlspecialchars($row['title']) . "</h2>
+                                        <p>" . nl2br(htmlspecialchars($row['text'])) . "</p>
+                                            <form action='" . route('likePost', ['id' => $row['id']]) . "' method='POST'> 
+                                                " . csrf_field() . " 
+                                                    <button type='submit' class='btn btn-primary likeButton'>LIKE <span class='counter'>{$row['likes_count']}</span></button><br><br>
+                                            </form>
 
-                            <form action='" . route('addSavedPost')."'method='POST'>
-                                " . csrf_field() . "
-                                    <input type='hidden' name='post_id' value='{$row['id']}'>
-                                    <button type='submit'> save </button>
-                            </form>
-            </div>
-            ";
-        }
+                                            <form action='" . route('addSavedPost')."'method='POST'>
+                                                " . csrf_field() . "
+                                                    <input type='hidden' name='post_id' value='{$row['id']}'>
+                                                    <button type='submit'> save </button>
+                                            </form>
+                            </div>
+                            ";
+                        }
                     } catch (PDOException $e) {
                         echo "An error occurred while connecting to the database: " . $e->getMessage();
                     }
@@ -114,10 +113,13 @@
                     <div class="card mb-4">
                         <div class="card-header">Search</div>
                         <div class="card-body">
-                            <div class="input-group">
-                                <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                                <button class="btn btn-primary" id="button-search" type="button">Go!</button>
-                            </div>
+                            <form action="{{route('searchUser')}}" method="POST">
+                                @csrf
+                                <div class="input-group">
+                                    <input class="form-control" type="text" name="search" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                                    <button class="btn btn-primary" id="button-search" type="submit">search</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <!-- Categories widget-->

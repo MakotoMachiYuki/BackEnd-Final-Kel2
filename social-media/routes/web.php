@@ -91,4 +91,6 @@ Route::post('/forgot-password', [forgotPasswordController::class, 'verifyUsernam
 Route::post('/reset-password', [resetPasswordController::class, 'reset'])->name('reset');
 
 Route::post('/follow/{user}', [FollowerController::class, 'followUser'])->name('follow');
+Route::post('/search', [RegisterController::class, 'searchUser'])->name('searchUser');
+
 
