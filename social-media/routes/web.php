@@ -67,7 +67,7 @@ Route::group(['middleware' => 'auth'], function()
   
     Route::prefix('settings')->group(function ()
     {   
-        Route::get('/delete-account', function(){ return view('deleteAccount');});
+        Route::get('/delete-account', [deleteAccountController::class, 'deleteAccountIndex']);
         Route::post('/delete-account', [deleteAccountController::class, 'deleteAccount']);
         Route::post('/verifyAccount', [verifyAccountController::class, 'verifyAccount']) -> name('verifyAccount');
         Route::get('/verifyAccount', [verifyAccountController::class, 'verifyAccountIndex']) -> name('verifyAccountIndex');

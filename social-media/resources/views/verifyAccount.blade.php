@@ -13,12 +13,12 @@
         <nav class="navbar">
         <a href="/" target="_self">Home</a>
         <a href="/post" target="_self">Post</a>
-        <a href="/about" target="_self">Profile</a>
+        <a href="/profile" target="_self">Profile</a>
         <a href="/settings" target="_self">Settings</a>
         </nav>
     </header>
     <h1 class ="judul">Verify Account</h1>
-        <form class = "verifyPage" action = "{{route('verifyAccount')}}" method = "post">
+        <form class = "loginPage" action = "{{route('verifyAccount')}}" method = "post">
             @csrf
             <label>Input your password:</label>
             <input type="password" placeholder="Input Password" name = "password" required>

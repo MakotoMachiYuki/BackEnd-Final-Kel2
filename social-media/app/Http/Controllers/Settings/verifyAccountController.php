@@ -29,7 +29,7 @@ class verifyAccountController extends Controller
         ];
         if(Auth::attempt($data))
         {   
-            return redirect('settings/change_account_information')->with('verified', 'UserIsVerified');
+            return back()->with('verified', 'UserIsVerified');
         }
         else
         {   

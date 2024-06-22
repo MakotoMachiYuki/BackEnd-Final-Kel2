@@ -12,8 +12,17 @@ use App\Models\Creator_posts;
 class deleteAccountController extends Controller
 {
     public function index()
-    {
+    {   
         return view ('settings');
+    }
+
+    public function deleteAccountIndex()
+    {   
+        if(!session('verified'))
+        {
+            return view('verifyAccount');
+        }
+            return view ('deleteAccount');
     }
 
     public function deleteAccount(Request $request)
