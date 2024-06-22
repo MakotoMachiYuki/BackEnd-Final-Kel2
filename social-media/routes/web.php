@@ -30,6 +30,8 @@ Route::group(['middleware' => 'auth'], function()
         return view('post');
     });
 
+    Route::get('/profile/{id}', [ProfileController::class, 'accProfile'])->name('accProfile');
+     
     Route::get('/profile', function () {
         return view('profile');
     });

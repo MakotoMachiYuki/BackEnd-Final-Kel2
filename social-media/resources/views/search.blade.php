@@ -26,7 +26,7 @@
             <ul>
                 @foreach ($users as $user)
                     <li>{{$user->username}}</li>
-                    <form action="{{route('profile', ['id' => $user->id])}}">
+                    <form action="{{route('accProfile', ['id' => $user->id])}}">
                         <button type='submit'> profile </button>
                     </form>
                 @endforeach

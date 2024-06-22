@@ -15,4 +15,10 @@ class profileController extends Controller
         $posts = $user->creator ? $user->creator->posts : collect();
         return view('profile', ['user' => $user, 'posts' => $posts]);
     }
+
+    public function accProfile($id)
+    {
+        $user = User::findOrFail($id);
+        return view('profile')->with('user', $user);
+    }
 }
