@@ -76,4 +76,17 @@ class registerController extends Controller
             Session::flash('message','Registration Succeed! Now pls login back!');
             return redirect('login');
     }
+
+    public function searchUser(Request $request){
+        $username = $request->input('search');
+
+        $users = User::where('username', 'like', '%'.$username.'%')->get();
+
+        if($users->isEmpty()){
+            return view('search')->with('error', 'not found');
+        }
+        else{
+            return view('search')->with('users', $users)->with('username', $username);
+        }
+    }
 }

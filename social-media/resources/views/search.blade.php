@@ -17,19 +17,21 @@
         <a href="/settings" target="_self">Settings</a>
         </nav>
     </header>
-    <h1>Halaman Settings</h1>
-
-
-
-    <a href="/settings/change_account_information" target = "_self"> Change Account Information</a>
     
-    <br> 
-    
-    <button onclick="window.location.href = '/settings/delete-account' ">Delete Account</button>
-   
-    <br>
-    
-    <a href="/logout" target="_self">Logout</a>
-
+    <div class="search">
+        @if(isset($error))
+            <h4>{{$error}}</h4>
+        @else
+            <h2>Search Result "{{$username}}"</h2>
+            <ul>
+                @foreach ($users as $user)
+                    <li>{{$user->username}}</li>
+                    <form action="{{route('profile', ['id' => $user->id])}}">
+                        <button type='submit'> profile </button>
+                    </form>
+                @endforeach
+            </ul>
+        @endif
+    </div>
 </body>
 </html>

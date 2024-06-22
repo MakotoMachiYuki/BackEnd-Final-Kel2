@@ -52,7 +52,6 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'followers', 'follower_id', 'following_id');
     }
 
-    
     public function following()
     {
         return $this->belongsToMany(User::class, 'followers', 'following_id', 'follower_id');
@@ -66,14 +65,17 @@ class User extends Authenticatable
     public function checkfollowing($userId)
     {
         return $this->following()->where('following_id', $userId)->exist();
-    
     }
 
     public function checkSaved($post_id)
     {
         return $this->savedPost()->where('post_id', $post_id)->exists();
     }
-
+    
+    public function posts(){
+        return $this->hasMany(Post::class);
+    }
+    
     /**
      * Get the attributes that should be cast.
      *
