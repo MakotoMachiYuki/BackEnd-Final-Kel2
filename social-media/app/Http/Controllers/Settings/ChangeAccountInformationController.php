@@ -14,30 +14,34 @@ class ChangeAccountInformationController extends Controller
 {
     public function ChangeAccountInformationIndex()
     {   
-        if(session('verified'))
-        {
-            return view('change_account_information');
-        }
-        else
-        {
-            return view('verifyAccount');
-        }
+        return view('change_account_information');
     }
 
     //still figuring out how to make session as authentication
     public function changeEmailIndex()
-    {
-        
+    {  
+        if(!session('verified'))
+        {
+            return view('verifyAccount');
+        }
         return view('changeEmail');  
     }
 
     public function changeUsernameIndex()
-    {
+    {   
+        if(!session('verified'))
+        {
+            return view('verifyAccount');
+        }
         return view('changeUsername');
     }
 
     public function changePasswordIndex()
-    {
+    {   
+        if(!session('verified'))
+        {
+            return view('verifyAccount');
+        }
         return view('changePassword');  
     }
 
