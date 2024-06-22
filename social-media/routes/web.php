@@ -51,6 +51,7 @@ Route::group(['middleware' => 'auth'], function()
 
     Route::post('/save_post', [savedPostController::class, 'addSavedPost'])->name('addSavedPost');
     Route::post('/remove_post', [savedPostController::class, 'removeSavedPost'])->name('removeSavedPost');
+    Route::post('/user_saved_post', [savedPostController::class, 'userAllSavedPost'])->name('userAllSavedPost');
     
     Route::post('/post/{id}/like', [postController::class, 'likePost'])->name('likePost');
     Route::post('/posts/comments', [CommentController::class, 'store'])->name('commentsroute');
