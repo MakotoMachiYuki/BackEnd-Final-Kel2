@@ -16,6 +16,12 @@ class profileController extends Controller
         return view('profile', ['user' => $user, 'posts' => $posts]);
     }
 
+    public function currProfile()
+    {
+        $user = Auth::user();
+        return view('profile')->with('user', $user);
+    }
+
     public function accProfile($id)
     {
         $user = User::findOrFail($id);
