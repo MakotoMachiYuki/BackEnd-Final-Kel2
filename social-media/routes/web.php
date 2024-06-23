@@ -29,9 +29,9 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('/post', function() {
         return view('post');
     });
-
+    
     Route::get('/profile/{id}', [ProfileController::class, 'accProfile'])->name('accProfile');
-     
+    Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
     Route::get('/profile', function () {
         return view('profile');
     });

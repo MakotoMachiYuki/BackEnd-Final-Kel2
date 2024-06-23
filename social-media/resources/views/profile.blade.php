@@ -18,7 +18,7 @@
         </nav>
     </header>
 
-    </main>
+    <main>
      <h1>Profile</h1>
      <section class="about">
         <p><strong>Username : </strong> {{Auth::user() -> username}}</p>
@@ -28,9 +28,14 @@
 
      <h1>Your Posts</h1>
      <section class="post">
-
-
-
-</body>
+     @foreach($post as $posts)
+             <div class="post">
+                <img src="{{ asset('storage/' . $post->image) }}" alt="Creator post" width="500" height="300">
+                <h2>{{ $post->title }}</h2>
+                <p>{{ $post->body }}</p>
+             </div>
+     @endforeach
+     </section>
+    </main>
 </body>
 </html>
