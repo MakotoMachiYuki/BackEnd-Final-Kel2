@@ -18,7 +18,7 @@
         </nav>
     </header>
 
-    </main>
+    <main>
      <h1>Profile</h1>
      <section class="about">
         @isset($user)
@@ -33,10 +33,15 @@
      </section>   
 
      <h1>Your Posts</h1>
-     <section class="post">
-
-
-
-</body>
+     <div class="post">
+     @foreach($userYourPost as $yourPost)
+             <div class="post">
+                <img src="storage/{{$yourPost->post->image}}" alt="Creator post" width="500" height="300">
+                <h2>{{ $yourPost->post->title }}</h2>
+                <p>{{ $yourPost->post->body }}</p>
+             </div>
+     @endforeach
+     </div>
+    </main>
 </body>
 </html>
