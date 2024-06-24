@@ -24,7 +24,6 @@
     @foreach ($userSavedPost as $savedPost)
         <div class="post">
             <img src="storage/{{$savedPost->post->image}}" alt="Creator post" width="500" height="300">
-
             <h2>{{$savedPost->post->title}}</h2>
             <p>{{$savedPost->post->text}}</p>
         </div>

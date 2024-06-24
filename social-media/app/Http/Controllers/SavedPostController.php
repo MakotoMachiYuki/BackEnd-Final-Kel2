@@ -8,6 +8,14 @@ use Illuminate\Support\Facades\DB;
 
 class savedPostController extends Controller
 {
+    public function userAllSavedPost(Request $request)
+    {
+        $user = Auth::id();
+        $userSavedPost = Saved_post::where('user_id', $user)->with('post')->get();
+
+        return view('savedPost')->with('userSavedPost', $userSavedPost);
+    }
+
     public function addSavedPost(Request $request)
     {
         $request->validate([

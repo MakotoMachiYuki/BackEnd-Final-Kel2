@@ -12,7 +12,7 @@
         <nav class="navbar">
         <a href="/" target="_self">Home</a>
         <a href="/post" target="_self">Post</a>
-        <a href="/about" target="_self">Profile</a>
+        <a href="/profile" target="_self">Profile</a>
         <a href="/settings" target="_self">Settings</a>
     </header>
     
