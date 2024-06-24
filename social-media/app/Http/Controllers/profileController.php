@@ -26,6 +26,8 @@ class profileController extends Controller
     public function accProfile($id)
     {
         $user = User::findOrFail($id);
-        return view('profile')->with('user', $user);
+        $user_id = $user->id;
+        $userYourPost = Creator_posts::where('creator_id', $user_id)->with('post')->get();
+        return view('profile')->with('userYourPost', $userYourPost);
     }
 }
