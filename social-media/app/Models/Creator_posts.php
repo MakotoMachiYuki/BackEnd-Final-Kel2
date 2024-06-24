@@ -16,4 +16,15 @@ class Creator_posts extends Model
      */
     protected $table = 'creator_posts';
 
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function post(){
+        return $this->belongsTo(Post::Class);
+    }
+
+    
+
 }

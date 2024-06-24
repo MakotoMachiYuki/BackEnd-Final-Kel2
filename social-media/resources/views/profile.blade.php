@@ -33,15 +33,15 @@
      </section>   
 
      <h1>Your Posts</h1>
-     <section class="post">
-     @foreach($post as $posts)
+     <div class="post">
+     @foreach($userYourPost as $yourPost)
              <div class="post">
-                <img src="{{ asset('storage/' . $post->image) }}" alt="Creator post" width="500" height="300">
-                <h2>{{ $post->title }}</h2>
-                <p>{{ $post->body }}</p>
+                <img src="storage/{{$yourPost->post->image}}" alt="Creator post" width="500" height="300">
+                <h2>{{ $yourPost->post->title }}</h2>
+                <p>{{ $yourPost->post->body }}</p>
              </div>
      @endforeach
-     </section>
+     </div>
     </main>
 </body>
 </html>

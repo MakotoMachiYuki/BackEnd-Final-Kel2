@@ -6,14 +6,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Creator_posts;
 
 class profileController extends Controller
 {
     public function profile()
     {
-        $user = Auth::user();
-        $posts = $user->creator ? $user->creator->posts : collect();
-        return view('profile', ['user' => $user, 'posts' => $posts]);
+        $user = Auth::id();
+        $userYourPost = Creator_posts::where('creator_id', $user)->with('post')->get();
+        return view('profile')->with('userYourPost', $userYourPost);
     }
 
     public function currProfile()
