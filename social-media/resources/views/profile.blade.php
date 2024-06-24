@@ -36,9 +36,9 @@
      <div class="post">
      @foreach($userYourPost as $yourPost)
              <div class="post">
-                <img src="storage/{{$yourPost->post->image}}" alt="Creator post" width="500" height="300">
-                <h2>{{ $yourPost->post->title }}</h2>
-                <p>{{ $yourPost->post->body }}</p>
+                <img src="/storage/{{$yourPost->image}}" alt="Creator post" width="500" height="300">
+                <h2>{{ $yourPost->title }}</h2>
+                <p>{{ $yourPost->text }}</p>
              </div>
      @endforeach
      </div>

@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
-
-use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
-use App\Models\Creator_posts;
+
 
 class profileController extends Controller
 {
     public function profile()
     {
         $user = Auth::id();
-        $userYourPost = Creator_posts::where('creator_id', $user)->with('post')->get();
+        $userYourPost = Post::where('user_id', $user)->get();
         return view('profile')->with('userYourPost', $userYourPost);
     }
 
@@ -27,7 +25,7 @@ class profileController extends Controller
     {
         $user = User::findOrFail($id);
         $user_id = $user->id;
-        $userYourPost = Creator_posts::where('creator_id', $user_id)->with('post')->get();
-        return view('profile')->with('userYourPost', $userYourPost);
+        $userYourPost = Post::where('user_id', $user_id)->get();
+        return view('profile')->with('userYourPost', $userYourPost)->with('user', $user);
     }
 }
