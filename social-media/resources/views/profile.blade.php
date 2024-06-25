@@ -31,6 +31,11 @@
             <p> Hallo, i'm {{Auth::user() -> username}}</p>
         @endisset
      </section>   
+     
+     <div class="container">
+     <p><strong>Bio:</strong> {{ $user->bio }}</p>
+     <p><strong>Pronouns:</strong> {{ $user->pronouns }}</p>
+     </div>
 
      <h1>Your Posts</h1>
      <div class="post">

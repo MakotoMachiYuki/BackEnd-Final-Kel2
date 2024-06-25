@@ -99,3 +99,8 @@ Route::get('/forgot-password', [forgotPasswordController::class,'showForgotPassw
 Route::post('/forgot-password', [forgotPasswordController::class, 'verifyUsername'])->name('verifyUsername');
 
 Route::post('/forgot-password/reset-password', [resetPasswordController::class, 'reset'])->name('reset');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/settings/bio', [BioController::class, 'edit'])->name('bio.edit');
+    Route::put('/settings/bio', [BioController::class, 'update'])->name('bio.update');
+});

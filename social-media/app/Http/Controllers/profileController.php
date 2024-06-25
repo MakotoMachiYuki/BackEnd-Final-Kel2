@@ -30,4 +30,12 @@ class profileController extends Controller
         $userYourPost = Creator_posts::where('creator_id', $user_id)->with('post')->get();
         return view('profile')->with('userYourPost', $userYourPost);
     }
+
+    public function show($id)
+    {
+        $user = Auth::user();
+        $user = User::findOrFail($id);
+        return view('profile', ['user' => $user]);
+    }
+
 }
