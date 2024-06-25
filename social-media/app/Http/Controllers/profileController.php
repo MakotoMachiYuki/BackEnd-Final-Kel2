@@ -8,12 +8,22 @@ use App\Models\User;
 
 class profileController extends Controller
 {
-    public function profile()
-    {
-        $user = Auth::id();
-        $userYourPost = Post::where('user_id', $user)->get();
-        return view('profile')->with('userYourPost', $userYourPost);
-    }
+public function profile()
+{
+    $userId = Auth::id();
+    $user = User::find($userId); 
+    $userYourPost = Post::where('user_id', $userId)->get();
+    $followersCount = $user->followersCount(); 
+    $followingsCount = $user->followingsCount(); 
+    
+    return view('profile')->with([
+        'user' => $user,
+        'userYourPost' => $userYourPost,
+        'followersCount' => $followersCount,
+        'followingsCount' => $followingsCount
+    ]);
+}
+
 
     public function currProfile()
     {
@@ -24,8 +34,15 @@ class profileController extends Controller
     public function accProfile($id)
     {
         $user = User::findOrFail($id);
-        $user_id = $user->id;
-        $userYourPost = Post::where('user_id', $user_id)->get();
-        return view('profile')->with('userYourPost', $userYourPost)->with('user', $user);
-    }
+        $userYourPost = Post::where('user_id', $user->id)->get();
+        $followersCount = $user->followersCount();
+        $followingsCount = $user->followingsCount();
+        
+        return view('profile', [
+            'userYourPost' => $userYourPost,
+            'user' => $user,
+            'followersCount' => $followersCount,
+            'followingsCount' => $followingsCount
+        ]);
+}
 }
