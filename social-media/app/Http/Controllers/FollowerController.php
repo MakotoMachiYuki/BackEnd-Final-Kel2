@@ -13,25 +13,27 @@ class FollowerController extends Controller
 
 
 {
-    public function follower(User $user){
-    $followerid = Auth::id();
-    $followingid =  $user->id;
-
-    if($followerid==$followerid){
-    response()->json(['error'=>'You cannot follow yourself'], 400);
+    public function followUser(User $user){
+    $followerId = Auth::id();
+    $followingId =  $user->id;
+   
+    if ($followerId == $followingId) {
+        return redirect()->back()->with('error', 'You cannot follow yourself');
     }
-    $sudahfollow = Follower::where('follower_id',$followerid)
-    ->where('following_id',$followingid)->first();
+    
+    $sudahfollow = Follower::where('follower_id',$followerId)
+    ->where('following_id',$followingId)->first();
     
     if($sudahfollow){
         $sudahfollow->delete();
-        response()->json(['error'=>'You already follow this account'], 200);
+        return redirect()->back()->with('error', 'You are already following this user');
     }
     Follower::create([
-        'follower_id' => $followerid,
-        'following_id' => $followingid,
+        'follower_id' => $followerId,
+        'following_id' => $followingId,
     ]);
-    return response()->json(['message' => 'User followed successfully.'], 201);
-    }
+    return redirect()->back()->with('success', 'User followed successfully');
+    
 }
 
+}
