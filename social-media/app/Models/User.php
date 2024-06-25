@@ -47,6 +47,16 @@ class User extends Authenticatable
         return $this->hasMany(Comments::class);
     }
 
+    public function followersCount()
+{
+    return $this->followers()->count();
+}
+
+public function followingsCount()
+{
+    return $this->following()->count();
+}
+
     public function followers()
     {
         return $this->belongsToMany(User::class, 'followers', 'following_id', 'follower_id');
