@@ -9,13 +9,13 @@ use App\Http\Controllers\registerController;
 use App\Http\Controllers\creatorController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\forgotPasswordController;
-use  App\Http\Controllers\resetPasswordController;
+use App\Http\Controllers\resetPasswordController;
 use App\Http\Controllers\deleteAccountController;
 use App\Http\Controllers\Settings\verifyAccountController;
 use App\Http\Controllers\Settings\ChangeAccountInformationController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\ProfileController;
-
+use App\Http\Controllers\Settings\BioController;
 
 
 Route::group(['middleware' => 'auth'], function()
@@ -51,12 +51,13 @@ Route::group(['middleware' => 'auth'], function()
     Route::post('/user_saved_post', [savedPostController::class, 'userAllSavedPost'])->name('userAllSavedPost');
     
     Route::post('/post/{id}/like', [postController::class, 'likePost'])->name('likePost');
-    Route::post('/posts/comments', [CommentController::class, 'store'])->name('commentsroute');
-    Route::get('/posts/comments', [CommentController::class, 'getComment'])->name('getComment');
+
+    
+    Route::post('/comments', [CommentController::class, 'store'])->name('commentsroute');
+    Route::get('/comments', [CommentController::class, 'getComment'])->name('getComment');
     
     Route::post('/follow/{user}', [FollowerController::class, 'followUser'])->name('follow');
     Route::post('/search', [RegisterController::class, 'searchUser'])->name('searchUser');
-
   
     Route::get('/settings', function ()
     {
@@ -65,6 +66,9 @@ Route::group(['middleware' => 'auth'], function()
   
     Route::prefix('settings')->group(function ()
     {   
+    
+        Route::post('/bio', [BioController::class, 'update'])->name('bio.update');    
+
         Route::get('/delete-account', [deleteAccountController::class, 'deleteAccountIndex']);
         Route::post('/delete-account', [deleteAccountController::class, 'deleteAccount']);
         Route::post('/verifyAccount', [verifyAccountController::class, 'verifyAccount']) -> name('verifyAccount');

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Comments;
-use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
@@ -28,12 +28,33 @@ class CommentController extends Controller
     public function getComment(Request $request)
     {    
         $post_id = $request->input('post_id');
-        $comments = DB::table('comments')->where('post_id', $post_id)->pluck('content')->get();
+        $commentsInfo = Comments::where('post_id', $post_id)->get();
 
-        session()->put('comments', $comments);
-        session()->save();
-        
-        return redirect()->back()->with('comment', $comments)->save();
+        $contents = $commentsInfo->content;
+        $user_id = $commentsInfo->user_id;
+
+        $usernames = User::where('id', $user_id)->get();
+
+        $content = [];
+        foreach ($contents as $tempContent) {
+            $content[] = $tempContent;
+        }
+
+        $username = [];
+        foreach($usernames as $tempusername)
+        {
+            $username[] = $tempusername;
+        }
+
+        $comments = [];
+        $i = 0;
+        foreach($content as $tempContent)
+        {
+            $username[$i] . ": " . implode(',', array_slice($tempContent, 1));
+            $i++;
+        }
+
+        return view('home')->with('comments', $comments);
 
 
     }
