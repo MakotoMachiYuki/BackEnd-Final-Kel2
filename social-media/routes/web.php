@@ -9,13 +9,13 @@ use App\Http\Controllers\registerController;
 use App\Http\Controllers\creatorController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\forgotPasswordController;
-use  App\Http\Controllers\resetPasswordController;
+use App\Http\Controllers\resetPasswordController;
 use App\Http\Controllers\deleteAccountController;
 use App\Http\Controllers\Settings\verifyAccountController;
 use App\Http\Controllers\Settings\ChangeAccountInformationController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\ProfileController;
-
+use App\Http\Controllers\Settings\BioController;
 
 
 Route::group(['middleware' => 'auth'], function()
@@ -56,7 +56,6 @@ Route::group(['middleware' => 'auth'], function()
     
     Route::post('/follow/{user}', [FollowerController::class, 'followUser'])->name('follow');
     Route::post('/search', [RegisterController::class, 'searchUser'])->name('searchUser');
-
   
     Route::get('/settings', function ()
     {
@@ -65,6 +64,9 @@ Route::group(['middleware' => 'auth'], function()
   
     Route::prefix('settings')->group(function ()
     {   
+    
+        Route::post('/bio', [BioController::class, 'update'])->name('bio.update');    
+
         Route::get('/delete-account', [deleteAccountController::class, 'deleteAccountIndex']);
         Route::post('/delete-account', [deleteAccountController::class, 'deleteAccount']);
         Route::post('/verifyAccount', [verifyAccountController::class, 'verifyAccount']) -> name('verifyAccount');
@@ -99,8 +101,3 @@ Route::get('/forgot-password', [forgotPasswordController::class,'showForgotPassw
 Route::post('/forgot-password', [forgotPasswordController::class, 'verifyUsername'])->name('verifyUsername');
 
 Route::post('/forgot-password/reset-password', [resetPasswordController::class, 'reset'])->name('reset');
-
-Route::middleware(['auth'])->group(function () {
-    Route::get('/settings/bio', [BioController::class, 'edit'])->name('bio.edit');
-    Route::put('/settings/bio', [BioController::class, 'update'])->name('bio.update');
-});

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Comments;
-use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
@@ -28,10 +27,7 @@ class CommentController extends Controller
     public function getComment(Request $request)
     {    
         $post_id = $request->input('post_id');
-        $comments = DB::table('comments')->where('post_id', $post_id)->pluck('content')->get();
-
-        session()->put('comments', $comments);
-        session()->save();
+        $comments = Comments::where('post_id', $post_id)->get();
         
         return redirect()->back()->with('comment', $comments)->save();
 

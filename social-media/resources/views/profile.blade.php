@@ -24,18 +24,15 @@
         @isset($user)
             <p><strong>Username : </strong> {{$user -> username}}</p>
             <p><strong>Email : </strong>{{$user -> email}}</p>
-            <p> Hallo, i'm {{$user -> username}}</p>
+            <p><strong>Bio:</strong> {{ $user->bio }}</p>
+            <p><strong>Pronoun:</strong> {{ $user->pronoun }}</p>
         @else
             <p><strong>Username : </strong> {{Auth::user() -> username}}</p>
             <p><strong>Email : </strong>{{Auth::user() -> email}}</p>
-            <p> Hallo, i'm {{Auth::user() -> username}}</p>
+            <p><strong>Bio:</strong> {{ Auth::user()->bio }}</p>
+            <p><strong>Pronoun:</strong> {{ Auth::user()->pronoun }}</p>
         @endisset
      </section>   
-     
-     <div class="container">
-     <p><strong>Bio:</strong> {{ $user->bio }}</p>
-     <p><strong>Pronouns:</strong> {{ $user->pronouns }}</p>
-     </div>
 
      <h1>Your Posts</h1>
      <div class="post">
