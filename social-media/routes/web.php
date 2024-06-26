@@ -51,8 +51,10 @@ Route::group(['middleware' => 'auth'], function()
     Route::post('/user_saved_post', [savedPostController::class, 'userAllSavedPost'])->name('userAllSavedPost');
     
     Route::post('/post/{id}/like', [postController::class, 'likePost'])->name('likePost');
-    Route::post('/posts/comments', [CommentController::class, 'store'])->name('commentsroute');
-    Route::get('/posts/comments', [CommentController::class, 'getComment'])->name('getComment');
+
+    
+    Route::post('/comments', [CommentController::class, 'store'])->name('commentsroute');
+    Route::get('/comments', [CommentController::class, 'getComment'])->name('getComment');
     
     Route::post('/follow/{user}', [FollowerController::class, 'followUser'])->name('follow');
     Route::post('/search', [RegisterController::class, 'searchUser'])->name('searchUser');

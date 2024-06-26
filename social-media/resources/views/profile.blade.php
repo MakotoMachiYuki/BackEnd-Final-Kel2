@@ -35,7 +35,7 @@
                     {{ Auth::user()->following->contains($user->id) ? 'Unfollow' : 'Follow' }}
                 </button>
             </form>
-            @endiff
+            @endif
         @else
             <p><strong>Username : </strong> {{Auth::user() -> username}}</p>
             <p><strong>Email : </strong>{{Auth::user() -> email}}</p>
