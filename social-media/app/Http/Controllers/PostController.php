@@ -29,6 +29,7 @@ class postController extends Controller
         }
         
         $post = Post::create([
+            'user_id' => $user_id,
             'image' => $imagePath,
             'title' => $request->title,
             'text'=> $request->text,

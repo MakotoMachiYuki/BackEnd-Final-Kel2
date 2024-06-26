@@ -24,11 +24,23 @@
         @isset($user)
             <p><strong>Username : </strong> {{$user -> username}}</p>
             <p><strong>Email : </strong>{{$user -> email}}</p>
+            <p><strong>Followers : </strong>{{ $followersCount }}</p>               
+            <p><strong>Following : </strong>{{ $followingsCount }}</p>
             <p><strong>Bio:</strong> {{ $user->bio }}</p>
             <p><strong>Pronoun:</strong> {{ $user->pronoun }}</p>
+            @if(Auth::id() !== $user->id)
+            <form action="{{ route('follow', ['user' => $user->id]) }}" method="POST" onsubmit="this.querySelector('button').disabled = true;">
+                @csrf
+                <button type="submit" class="follow-btn">
+                    {{ Auth::user()->following->contains($user->id) ? 'Unfollow' : 'Follow' }}
+                </button>
+            </form>
+            @endiff
         @else
             <p><strong>Username : </strong> {{Auth::user() -> username}}</p>
             <p><strong>Email : </strong>{{Auth::user() -> email}}</p>
+            <p><strong>Followers : </strong>{{ $followersCount }}</p>
+            <p><strong>Following : </strong>{{ $followingsCount }}</p>
             <p><strong>Bio:</strong> {{ Auth::user()->bio }}</p>
             <p><strong>Pronoun:</strong> {{ Auth::user()->pronoun }}</p>
         @endisset
@@ -38,9 +50,9 @@
      <div class="post">
      @foreach($userYourPost as $yourPost)
              <div class="post">
-                <img src="storage/{{$yourPost->post->image}}" alt="Creator post" width="500" height="300">
-                <h2>{{ $yourPost->post->title }}</h2>
-                <p>{{ $yourPost->post->body }}</p>
+                <img src="/storage/{{$yourPost->image}}" alt="Creator post" width="500" height="300">
+                <h2>{{ $yourPost->title }}</h2>
+                <p>{{ $yourPost->text }}</p>
              </div>
      @endforeach
      </div>
