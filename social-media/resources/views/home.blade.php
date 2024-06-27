@@ -68,23 +68,38 @@
         // Fetch data
         while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
             // Convert newlines to <br> for proper display
+
+            
+                $tempUsername = $pdo->query("SELECT u.username FROM users u JOIN posts p ON u.id = p.user_id WHERE p.user_id = ". $row['user_id'] . " AND p.id = " . $row['id']);
+                $usernamePost = $tempUsername->fetchColumn();
+
                 $text = nl2br(htmlspecialchars($row['text']));
                 $imagePath = htmlspecialchars($row['image']); // assuming 'image' is the column name
-              $comments = [];
-              $tempArray = $pdo->query("SELECT content from comments where post_id =  ".$row['id'] );
-              foreach($tempArray as $tempComment)
-              {
-                  $comments[] = $tempComment;
-               }
+             
+                $contents = [];
+                $tempArray = $pdo->query("SELECT content from comments where post_id =  ".$row['id'] );
+                foreach($tempArray as $tempComment)
+                {
+                    $contents[] = $tempComment;
+                }
 
-              $username = [];
-              $tempArray1 = $pdo->query(" select u.username from users u join comments c on u.id = c.user_id where c.post_id =". $row['id']);
-              foreach($tempArray1 as $tempUser)
-              {
-                  $username[] = $tempUser;
-              }
+                $username = [];
+                $tempArray1 = $pdo->query("SELECT u.username FROM users u JOIN comments c ON u.id = c.user_id WHERE c.post_id =". $row['id']);
+                foreach($tempArray1 as $tempUser)
+                {
+                    $username[] = $tempUser;
+                }
+
+                $comments = [];
+                $i = 0;
+                foreach($contents as $tempContent)
+                {
+                    $comments[$i] = implode(',', array_slice($username[$i], 1)) . ": " . implode(',', array_slice($tempContent, 1));
+                    $i++;
+                }
            echo "
                 <div class='post'>
+                    <h2>" . htmlspecialchars($usernamePost) . "</h2>
                     <img src='storage/$imagePath' alt='Post Image' width='500' height='300'>
                     <h2>" . htmlspecialchars($row['title']) . "</h2>
                     <p>" . nl2br(htmlspecialchars($row['text'])) . "</p>
@@ -97,7 +112,7 @@
                              "<form action='" . route('getComment') . "' method='GET'>";
                                     foreach($comments as $comment)
                                     {
-                                        echo "<p>" .implode(',', array_slice($comment, 1)) . "</p>";
+                                        echo $comment . "<br>";
                                     }   
                         echo "</form>";
 

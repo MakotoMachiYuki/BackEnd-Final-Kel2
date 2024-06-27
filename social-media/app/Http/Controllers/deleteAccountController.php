@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\saved_post;
 use App\Models\Creator;
 use App\Models\Creator_posts;
+use App\Models\Post;
 
 class deleteAccountController extends Controller
 {
@@ -32,6 +33,8 @@ class deleteAccountController extends Controller
         Creator_posts::where('creator_id', $user->id)->delete();
         Creator::where('user_id', $user->id)->delete();
         saved_post::where('user_id', $user->id)->delete();
+        Post::where('user_id', $user->id)->delete();
+
         Auth::logout();
         $user->delete();
         return redirect('/login')->with('status', 'Your account has been deleted.');

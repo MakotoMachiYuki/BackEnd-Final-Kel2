@@ -23,7 +23,7 @@
         @csrf
         <div class="mb-3">
             <label for="formFile" class="form-label">Upload Image:</label>
-            <input class="form-control" type="file" id="post-images" name="post-images">
+            <input class="form-control" type="file" id="post-images" name="post-images" required>
 
           </div>
         <div class="mb-3">
